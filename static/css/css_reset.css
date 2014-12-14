@@ -1,0 +1,42 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {color: #000000; background: #FFFFFF;}
+
+html, body, div, span, applet, object, iframe, form, h1, h2, h3, h4, h5, h6, p, blockquote, a, a:link, a:visited, em, font, img, small, strike, samp, strong, sub, sup, label, table, caption, tbody, tfoot, thead, tr, th, td 
+{margin: 0; border: 0; vertical-align: baseline;}
+
+/* Removes glow around input boxes in Safari */
+:focus { outline: none; }
+
+table {border-collapse: collapse; border-spacing: 0;}
+caption, th, td {text-align: left; font-weight: normal;}
+
+/* ---------------------------------------------------------------------------------------------- */
+/* -------------------------------------- STANDARD CLASSES -------------------------------------- */
+
+.clear { clear: both; line-height: 1px; height: 1px; }
+
+.ipf-sectionmenu:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.ipf-sectionmenu { display: inline-block; }
+
+.clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.clearfix { display: inline-block; }
+
+/* Hides from IE-mac \*/
+* html .clearfix  { height: 1%; }
+* html .ipf-sectionmenu { height: 1%; }
+.clearfix { display: block; }
+.ipf-sectionmenu { display: block; }
+/* End hide from IE-mac */
+
+.fl_left { float: left; }
+.fl_right { float: right; }
+
+.hide { display: none; }
+.show { display: block; }
+
+img.left {float:left; margin:1em 1em 1em 0;}
+img.right {float:left; margin:1em 0 1em 1em;}
+
+.withborder {border:3px solid #d0d5bb; padding:1px; background:#fff;}

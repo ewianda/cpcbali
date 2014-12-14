@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block main %}
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+<a class="edit-post-button" href="#">Edit Word</a> 
+
+
+
+<div id="dialog-form" title="Define new word">
+    {%crispy form%}
+</div>
+
+
+<div class="page_template"> 
+    <hr> 
+    <div class='content'></div>  
+    <div class='footer'><hr><span>Page: </span></div>  
+</div> 
+<div style="position:relative" id="page"></div>
+
+<div  class="word-list"  id = "newsletterContent">
+
+    {% for word in object_list %} 
+
+    <h4 class="word-name dontend"><a   href="#">{{word.word}}</a></h4>   
+    <div class='main-body'> 
+        <span  class = 'username'  id="username" data-type="textarea" data-pk="{{word.pk}}" data-url="{% url 'word-edit' %}" data-title="{{word.word}}">{{word.definition}}</span>
+        <div class='word-footernote dontsplit'>Defined by:<b>{{word.user.first_name}} </b>
+            <a class="create-word" href="#" class="bn btn-prmary">Add Word</a>
+            <a class="edit-post-button" href="#">Edit Word</a> 
+        </div>	
+    </div>	
+
+
+    {% empty %}
+    No word
+    {% endfor %}
+
+</div>
+
+<div style="position:relative;margin-left:320px;" id="page-nav"></div>
+
+
+
+
+{% endblock %}
+{% block javascript %}
+
+<script src="{% static "js/jquery-listnav.min.js"%}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+                      $(function(){
+                        var content_height = 340;	// the height of the content, discluding the header/footer
+                        var page = 1;				// the beginning page number to show in the footer
+                        function buildNewsletter(){
+                        if($('#newsletterContent').contents().length > 0){
+                        // when we need to add a new page, use a jq object for a template
+                        // or use a long HTML string, whatever your preference
+                        $page = $(".page_template:first").clone().addClass("page").css("display", "block");
+
+                        // fun stuff, like adding page numbers to the footer
+                        $page.find(".footer span").append(page);
+                        $("#page").append($page);
+                        page++;
+
+                        // here is the columnizer magic
+                        $('#newsletterContent').columnize({
+columns: 2,
+target: ".page:last .content",
+overflow: {
+height: content_height,
+id: "#newsletterContent",
+doneFunc: function(){
+//console.log("done with page");
+buildNewsletter();
+// How many parts do we have?
+var pageParts = $(".page_template.page");
+var numPages = pageParts.length;
+// How many parts do we want per page?
+var perPage = 1;
+//console.log(numPages)
+
+
+// When the document loads we're on page 1
+// So to start with... hide everything else
+pageParts.slice(perPage).hide();
+// Apply simplePagination to our placeholder
+$("#page-nav").pagination({
+items: numPages,
+itemsOnPage: perPage,
+cssTheme: "light-theme",
+// We implement the actual pagination
+//   in this next function. It runs on
+//   the event that a user changes page
+onPageClick: function(pageNum) {
+// Which page parts do we show?
+var start = perPage * (pageNum - 1);
+var end = start + perPage;
+
+// First hide all page parts
+// Then show those just for our page
+pageParts.hide()
+.slice(start, end).show();
+}
+});
+$('.username').editable();
+$('.username').off('click');
+ $("a[class='edit-post-button'],a.create-word").popover({trigger:'manual',                                                                                                                                                                                                                                                                                                                                                 
+                                           html: true,
+                                           title: function () {
+                                                return "Login to edit text";
+                                                          },
+                                           content: function () {
+                                               return  $('#loginBox').html();
+                                                                   }
+ });
+
+
+
+}
+}
+});
+}
+}
+setTimeout(buildNewsletter);
+});
+
+
+
+$("a[class='edit-post-button'],a.create-word").on('click', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    $textarea = $(this).closest('.main-body').find('.editable');
+                                    $login = $(this)
+									//alert($login)
+									$("a[class='edit-post-button'],a.create-word").not(this).popover('hide');                                   
+                                    $.ajax({url:"/ajax_check_auth/",
+                                           type: "POST",
+                                           success:function(data){
+                                           if(data=="True"){                                           
+                                           $textarea.editable('toggle');                                                      
+                                           }
+                                           else{
+                                           $login.popover('show');
+                                           }
+                                           },
+error:function(err,ee,cc){
+}
+})     
+                                    });
+									
+									
+
+function checkAuth(Diag) {
+    $.ajax({url:"/ajax_check_auth/",
+           type: "POST",
+           success:function(data){
+           if(data=="True"){
+           Diag.dialog( "open" );                                                              
+           }
+           else{
+         
+           var button = $('#loginButton');
+           var box = $('#loginBox');
+           var form = $('#loginForm');                                                                                                                              box.toggle()}
+           },
+error:function(err,ee,cc){
+}
+})
+}
+var dialog = $("#dialog-form" ).dialog({
+autoOpen: false,
+height: 500,
+width: 650,
+modal: true,})//end dialog
+
+if($("#dialog-form").find('.form-group').hasClass('has-error')){
+   dialog.dialog( "open" );  
+   }
+
+
+$( "a.create-word" ).click(function(e){
+                           e.preventDefault();
+                           e.stopPropagation();
+                           //checkAuth(dialog)
+						   }); // End button
+
+/*$('#newsletterContent').listnav({showCounts: false, 		
+                    includeNums: false,
+                    removeDisabled: false,
+                    onClick:function(e){
+                    alert(e)
+                    window.location.href='?word='+e;
+                    },
+                    
+                    
+                    });//end listna
+ */
+
+
+}) // End document ready
+
+
+</script>
+{% endblock %}

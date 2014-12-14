@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+ <ul  class="nav-stacked">
+    <h3>Hi: {{ user.nickname }}</h3>
+    <li>First Name: {{ user.first_name}}</li>
+    <li>Last Name: {{ user.last_name }}</li>
+    <li>Alias: {{ user.nickname }}</li>
+    <li>Room: {{ user.house }}</li>
+    <li>Dorm: {{ user.room }}</li>
+ <li>
+    {% if user.picture %}
+             <div class="col-sm-3 thumbnail">
+                <img src={{user.picture.url_125x125 }} width = '180' alt="Sample Image">
+             </div>
+             {% endif %} 
+</li>
+ <li>
+<p><a href="{% url "update-profile" pk=user.id  %}">Edit Profile</a></p>
+ </li>
+   </ul>
+
+{% endblock %}

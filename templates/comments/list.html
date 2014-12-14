@@ -1,0 +1,35 @@
+{% load i18n comments_xtd %}
+{% load url from future %}
+{% load static %}
+<div id="comments" >
+  {% for comment in comment_list reversed %}
+  <div  style="margin-left:{{comment.level}}00px; padding:5px 0 5px 5px">
+    <div class=" row" id="c{{ comment.id }}" style="background-color: #C3C488; color:blue; padding:5px 0 5px 5px">
+	
+     <div class='col-lg-1'>
+   {% if comment.user.picture %}
+         <img src={{comment.user.picture.url_200x200}} class="img-circle" width="50" alt="Sample Image"> 		 
+	{% else %}
+           <img src="{% static "images/logo3.png"%}" class="img-circle" width="50"/>	 
+		 {% endif %} 
+		  </div>
+	 <div class='col-lg-10'>
+		 <h5 style="color:black; margin:0px 0 5px 5px"> <strong>{{ comment.name }}</strong> &nbsp;-&nbsp;<font color='blue' size='1.5pt'>{{ comment.submit_date|timesince}} ago</font>
+		 {% if comment.url %}<a href="{{ comment.url }}" target="_new">{% endif %}		 
+		</h5>
+	
+      <p>{{ comment.comment|render_markup_comment }}</p>
+	  {% if comment.allow_thread %} <a href="{{ comment.get_reply_url }}">{% trans "Reply" %}</a>{% endif %}
+    </div>
+	
+	
+    </div>
+    
+  </div>
+  <hr>
+  {% endfor %}
+</div>
+
+
+
+

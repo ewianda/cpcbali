@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block main %}
+
+ <link rel="stylesheet" href="{% static "css/anthem/style.css" %}" type="text/css" media="screen" />
+ 
+
+    <div  class = "anthem-box">
+    <fieldset>
+        <legend>
+          Bali Anthem: I pledge to Thee
+        </legend>
+        <div class="row" >
+            <p class=" col-sm-3 col-md-6 col-lg-6 ">
+             <b>Verse 1 </b>
+              <span class="wor" id="w1">I pledge to thee oh CPC </span>
+              <span id="w2">Thy banner ever to unfold   </span>
+            <span id="w3">To Father Son and Holy Ghost  </span>
+            <span id="w4">Our tribute rise like Abel's smoke  </span>
+            <span id="w5">For O'Neil Rudin and many more  </span>
+            <span id="w6">Whose labor seals within our hearts  </span>
+            <span id="w7">Our love for learning that abide  </span>
+            <span id="w8">And our heritage of honour true  </span>
+            </p>
+
+            <p class=" col-sm-3 col-md-6 col-lg-6">
+			<span class="wod" id="verse-2"><b>Verse 2</b> 
+			To this enduring fountain of   
+                where duty is with passion bread  
+                Bali where duty is the law   
+                With love for God and fellow  
+                For nations great of such are made   
+                who trust in God and do the right</span>
+				</p>
+        </div>
+
+        <p class="col-sm-12">
+        <b>Chorus</b>
+        <br>
+       <span id="c1"> Ding says the morning bell</span>
+        <span id="c2">Rise and fill the passing hours</span>
+        <span id="c3">Echoes of singing in the chapel a little work away</span>
+        <span id="c4">Corn-chaff on Saturday</span>
+        <span id="c5">Sunday the Holy Trinity</span>
+        <span id="c6">Go to brooks and be caught you will cut the grass</span>
+        <span id="c7">The contest is keen</span>
+        <span id="c8">The rules very stern</span>
+        <span id="c9">Only the best are rewarded</span>
+        <span id="c10">1972 girls in bungalow 5</span>
+        <span id="c11">Join the boys in the quest for the Golden Flees</span>
+        </p>
+        <audio class="col-sm-12" width="300" id ="anthem-1" controls>   
+        <source   src="{%static "/static/audio/ANTEM.mp3"%}" type="audio/mp3">
+        </audio>
+
+    </fieldset>
+</div>
+    <br>
+    <br>
+<div  class = "anthem-box">
+    <fieldset>
+        <legend>
+            <strong>Boban Anthem: Courage brother</strong>
+        </legend>
+       
+
+        <div class="row" >
+<div class="col-sm-6" >
+            <p><b> 1.)</b> Courage, brother, do not stumble,<br>
+            Though thy path be dark as night;<br>
+            There’s a star to guide the humble:<br>
+            Trust in God and do the right.
+            </p>
+            <p><b> 2.) </b>
+            Let the road be rough and dreary,<br>
+            And its end far out of sight,<br>
+            Foot it bravely; strong or weary,<br>
+            Trust in God, trust in God, do the right.
+            </p>
+            <p><b> 3.)</b>
+            Perish policy and cunning,<br>
+            Perish all that fears the light!<br>
+            Whether losing, whether winning,<br>
+            Trust in God and do the right.
+            </p>
+			</div>
+	<div class="col-sm-6" >
+            <p><b>  4.)</b>
+            Some will hate thee, some will love thee,<br>
+            Some will flatter, some will slight;<br>
+            Cease from man, and look above thee:<br>
+            Trust in God and do the right.
+            </p>
+            <p><b>  5.)</b> 
+            Simple rule, and safest guiding,<br>
+            Inward peace and inward might,<br>
+            Star upon our path abiding,<br>
+            Trust in God and do the right.
+            </p>
+</div>
+        </div>
+ <audio controls class="col-sm-12">   
+        <source src="{%static "/static/audio/courage_brother.mp3"%}" type="audio/mp3">
+        </audio>
+    </fieldset>
+</div>
+
+
+{% endblock %}
+{% block javascript %} 
+<script src='{% static "js/popcorn-complete.min.js"%}'></script>
+<script>
+    $(document).ready(function() { 
+
+        var pop = Popcorn("#anthem-1");
+
+        var wordTimes = {
+            "w1": { start: 0, end: 4 },
+            "w2": { start: 5, end: 10 },
+            "w3": { start: 11, end: 16 },
+            "w4": { start: 17, end: 22 },
+            "w5": { start: 23, end: 27 },
+            "w6": { start: 28, end: 31},
+            "w7": { start: 32, end: 36 },
+            "w8": { start: 37, end: 42 },
+        };
+
+        $.each(wordTimes, function(id, time) {
+            pop.footnote({
+                start: time.start,
+                end: time.end,
+                text: '',
+                target: id,
+                effect: "applyclass",
+                applyclass: "selected"
+            });
+        });
+		
+		
+		 var chorusTimes = {
+            "c1": { start: 42.5, end: 45 },  "c2": { start: 45, end: 47.5 },
+            "c3": { start: 48, end: 54 },"c4": { start: 54, end: 56 },
+            "c5": { start: 56.5, end: 59 },"c6": { start: 59.5, end: 64},
+            "c7": { start: 64.5, end: 66.5 },"c8": { start: 67, end: 70 },
+			"c9": { start: 70.5, end: 75 },"c10": { start: 75.5, end: 80.5},
+            "c11": { start: 81, end: 86 }, 
+        };
+		$.each(chorusTimes, function(id, time) {
+            pop.footnote({
+                start: time.start,
+                end: time.end,
+                text: '',
+                target: id,
+                effect: "applyclass",
+                applyclass: "selected"
+            });
+        });
+		
+        pop.play();
+
+      
+
+    });//end document ready
+
+</script>
+{% endblock %}

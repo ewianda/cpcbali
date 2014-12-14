@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+
+
+<link rel="stylesheet" href="{%static "css/scholarship/style.css"%}">
+<div id="tabs">
+  <ul>
+  
+    <li><a href="#tabs-1">2014 Awards</a></li>
+    <li><a href="#tabs-2">2015 Awards</a></li>
+	  <li><a href="#tabs-3">Create Price/Award</a></li>
+  </ul>
+
+<div id="tabs-1">
+<div id="accordion">
+  <h3>Mr and Mrs Elvis Mboumien Best Lower-sixth science student </h3>
+  <div>
+    <p>
+    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+    </p>
+  </div>
+  <h3>Mrs Patience Mboumien Best Chorister Award</h3>
+  <div>
+   <p>
+    A 20,000FCFA cash award that goes to the student with outstanding musical ability as a chorister in the school choir, gospel group or songs leader;
+	
+    </p>
+    <p>
+    2006 Recipient: Patience Tanjong
+    </p>
+  </div>
+  <h3>The G. Ndangoh award for the student with the highest average in an academic term.</h3>
+  <div>
+    <p>
+    Recipients
+    </p>
+    <ul>
+      <li>2014</li>
+      <li>2015</li>
+      <li>2016</li>
+    </ul>
+  </div>
+  
+</div>
+</div>
+
+<div id="tabs-2">
+No awards at this time
+</div>
+
+   <div id="tabs-3" >
+  <div id=" dialog-form" title="Create new user">
+      {%crispy form%}
+  </div>
+   </div>
+</div>
+
+
+
+
+
+
+  {% endblock %}
+  {% block javascript %}
+
+
+  <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+  <script src="{% static "js/jquery-listnav.min.js"%}"></script>
+
+  <script type="text/javascript">
+      $(document).ready(function() {
+    $( "#accordion" ).accordion({
+	collapsible: true,
+	active: false,});
+	$( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+    $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+}) // End document ready
+</script>
+{% endblock %}

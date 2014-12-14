@@ -1,0 +1,18 @@
+.word {
+   color: red;
+   display:none;
+}
+ .selected {
+    color: brown;
+    cursor: pointer;
+	font-weight:bold;
+}
+audio {width:300px;}
+
+.anthem-box{border:solid 3px #950197; 
+padding-left:20px;
+padding-right:30px;
+color:blue;
+border-radius:30px;
+background-color: #C3C488; /* Old browsers */ 
+  background-repeat: repeat-x; /* Repeat the gradient */}

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load comments %}
+{% load static %}
+{% block main %}
+
+
+<div class='col-lg-offset-2 col-lg-8'>
+
+
+{% if batch.picture %}
+<div class="row">
+    <img class="col-lg-12 thumbnail"src={{batch.picture.url}} width = '580' alt="Sample Image">
+ </div>
+ {% if user.is_authenticated %}
+ {% get_comment_form for batch as form %}
+ <div class='row' style="background-color: #ddd; color:blue; padding:5px 10px 5px 5px">
+
+  <H4 class="center">Comments</H4>
+
+    <form id="commentsForm" class='form-horizontal'action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+	
+    {{ form.comment }}
+    {{ form.honeypot }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    {{form.reply_to}}
+    <input type="hidden" name="next" value="{{next}}" />
+    <input type="submit" value="Add comment" id="id_submit" class="btn btn-primary btn-lg" />
+    </form>
+	</div>
+{% else %}
+    <p>Please <a href="">log in</a> to leave a comment.</p>
+  
+
+  {% endif %}
+
+ 
+ 
+<div class='row' id="comments">
+  {% get_comment_count for batch as comment_count %}
+  {% if comment_count %}
+  <H4 class="center">{{ comment_count }} comment{{ comment_count|pluralize }}</H4>
+  {% endif %}
+  <div id="comment-list">
+    {% render_comment_list for batch %}
+  </div>
+</div>
+ {% endif %} 
+
+<div class='row'  id="newcomment"></div>
+ </div>
+
+<div class='row'>
+<select style="width:200px;letter-spacing:1em;" id="class">
+
+</select>
+</div>
+
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+        $(document).ready(function($) {
+                          $("#class").select2({ placeholder: "Select a Class",
+    allowClear: true});
+                          for ( i = 1954; i <= new Date().getFullYear(); i++) {
+                          $('select').append($('<option />').val(i).html(i));
+                          }
+						  
+						  $("#id_comment").addClass('form-control').attr('rows', 4);
+						  
+
+$("#commentsForm").submit(function(e) {
+    e.preventDefault;
+    var url = $(this).attr('action'); // the script where you handle the form input.
+	var data=$(this).serialize()
+     console.log(data)
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: data, // serializes the form's elements.
+           success: function(data)
+           {
+		   $.get( "/batch", function( data ) { 
+  $("#comments").html($('#comments',data).html());
+});
+              // alert(data); // show response from the php script.
+			   
+           }
+         });
+    return false; // avoid to execute the actual submit of the form.
+});
+
+
+$('#a').click(function (event) 
+{ 
+   event.preventDefault(); 
+   $this =$(this);
+   var url = $(this).attr('href');
+   $.get(url, function(data) {
+     $this.append(data)
+     alert(data);
+    });
+
+ });
+}); // Document ready
+						  
+		
+                          </script>
+{% endblock %}

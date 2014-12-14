@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block main %}
+<div class="row">
+	<fieldset>
+		<legend>
+                    <strong>Upcoming events</strong>
+		</legend>
+
+                <p><a  href="{% url 'contact' %}">Submit</a>  information about Boban events happening around the world</p>
+
+</div>   
+</fieldset>
+<div class="row">
+	<fieldset>
+		<legend>
+                    <strong>Boban Associations</strong>
+		</legend>
+
+<div style="width:500px">
+    <p><a onclick="window.open(this.href,'','scrollbars=yes,resizable=yes,location=yes,menubar=yes,status=yes,toolbar=yes,left=0,top=0');return false;" href="http://www.bobausa.org/">BOBA USA</a></p>
+<p><a onclick="window.open(this.href,'','scrollbars=yes,resizable=yes,location=yes,menubar=yes,status=yes,toolbar=yes,left=0,top=0');return false;" href="http://bobadc.com/">BOBA Washington DC</a></p>   
+</fieldset>
+</div>
+
+
+{% endblock %}
+

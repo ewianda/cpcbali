@@ -1,0 +1,51 @@
+.listNav,.ln-letters{overflow:hidden;}.listNavHide{display:none;}.listNavShow{display:list-item;}.letterCountShow{display:block;}.ln-letters a{font-size:0.9em;display:block;float:left;padding:2px 6px;border:1px solid silver;border-right:none;text-decoration:none;}.ln-letters .ln-last{border-right:1px solid silver;}.ln-letters a:hover,.ln-letters .ln-selected{background-color:#eaeaea;}.ln-letters .ln-disabled{color:#ccc;}.ln-letter-count{position:absolute;top:0;left:0;width:20px;text-align:center;font-size:0.8em;line-height:1.35;color:#336699;}/*# sourceMappingURL=listnav.css.map */
+
+/*.word-list .even  {
+background-color: #eff1f9;
+-webkit-box-shadow: 0px 0px 2px 0px #bababa;
+box-shadow: 0px 0px 5px 0px #BBB;
+}*/
+
+.word-list li {
+list-style-type: none;
+/*overflow: hidden;*/
+padding: 0px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+-moz-background-clip: padding;
+-webkit-background-clip: padding-box;
+background-clip: padding-box;
+
+}
+
+.page{  height: 430px; margin-top:20px; position: relative; }
+.page .content .column{ text-align:justify; font-size: 10pt; }
+.page .content .column blockquote{ border-left: 2px solid #999999; background: #DEDEDE; padding: 10px; margin: 4px 20px; clear: both; }
+.page .content .column img{ float: left; margin: 10px; }
+.page .content .column p{ padding: 0 10px; margin: 10px 0; }
+.page .content .column h1{ padding: 0 10px; }
+.page .header{ text-align: center; font-size: 18pt; font-family: helvetica, arial; padding: 20px 0 0; }
+
+.page .footer{ text-align: center; }
+.page .footer span{ position: absolute; bottom: 10px; right: 10px; }
+.page_template{ display: none; }
+.enclosure {border:1px dashed black}	
+.page .content .first{padding-right: 30px; border-right:solid grey 2px;}
+.page .content .last{ padding-left: px;}
+#page-nav ul li{padding:0 7px 0 10px;}
+.word-name a{ color:#950197;}
+
+
+.word-footernote{position:relative;bottom:3px;
+font-size:8pt;
+font-weight:900;
+padding: 07px;}
+
+.word-footernote .edit-post-button{position:relative;right:-110px;}
+.word-footernote .create-word{position:relative;left:100px;}
+ .popover {
+ 
+  max-width: 290px !important; 
+  width: 100%;
+}
+

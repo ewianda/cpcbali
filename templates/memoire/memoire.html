@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+{% block main %}
+
+<link rel="stylesheet" href="{%static "css/memoire/style.css"%}">
+<div style ="font-weight:bold; font-size:12pt;"> Share with Bobans why they are proud of their Alma Mater. Share those memorable and exiting stories that will make you want to send
+your kids to Bali and increase the ever growing Boban population of industrious, influential and creative citizens of the world. </div>
+<div class="page_template"> 
+    <hr> 
+    <div class='content'></div>  
+    <div class='footer'><hr><span>Page: </span></div>  
+</div> 
+<div style="position:relative" id="page"></div>
+<div  class="word-list"  id = "newsletterContent">
+
+        {% for boban in boban_list %}   
+		<div class="dontsplit profile"> 
+        <h4 class="dontend "> <a href="#">{{boban.first_name}}, {{boban.last_name}} </a></h4>  
+		{% if boban.nickname %}<p class="dontend"> <font size='2pt'> Alias {{boban.nickname}} </font>{% endif %} 
+		{{boban.end_date}} Batch</p>
+		{% if boban.picture %}
+         <img src={{boban.picture.url_200x200}} class="img-circle" width="80" alt="Sample Image">
+          {% else %}
+           <img src="{% static "images/logo3.png"%}" class="img-circle" width="80"/>
+           {% endif %}       
+        <p class='dontsplit'>{{boban.memoir}}</p>
+</div> 
+        {% empty %}
+        {% endfor %}
+</div>
+
+<div style="position:relative" id="page-nav"></div>
+  
+</body>
+
+  
+  {% endblock %}
+  {% block javascript %}
+
+
+  <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+  <script src="{% static "js/jquery-listnav.min.js"%}"></script>
+
+  <script src="{% static "js/jquery-ui-1.8.9.min.js"%}"></script>
+  <script type="text/javascript">
+      $(document).ready(function() { 
+       $(function(){
+                        var content_height = 540;	// the height of the content, discluding the header/footer
+                        var page = 1;				// the beginning page number to show in the footer
+                        function buildNewsletter(){
+                        if($('#newsletterContent').contents().length > 0){
+                        // when we need to add a new page, use a jq object for a template
+                        // or use a long HTML string, whatever your preference
+                        $page = $(".page_template:first").clone().addClass("page").css("display", "block");
+
+                        // fun stuff, like adding page numbers to the footer
+                        $page.find(".footer span").append(page);
+                        $("#page").append($page);
+                        page++;
+
+                        // here is the columnizer magic
+                        $('#newsletterContent').columnize({
+columns: 2,
+target: ".page:last .content",
+overflow: {
+height: content_height,
+id: "#newsletterContent",
+doneFunc: function(){
+//console.log("done with page");
+buildNewsletter();
+// How many parts do we have?
+var pageParts = $(".page_template.page");
+var numPages = pageParts.length;
+// How many parts do we want per page?
+var perPage = 1;
+//console.log(numPages)
+
+
+// When the document loads we're on page 1
+// So to start with... hide everything else
+pageParts.slice(perPage).hide();
+// Apply simplePagination to our placeholder
+$("#page-nav").pagination({
+items: numPages,
+itemsOnPage: perPage,
+cssTheme: "light-theme",
+// We implement the actual pagination
+//   in this next function. It runs on
+//   the event that a user changes page
+onPageClick: function(pageNum) {
+// Which page parts do we show?
+var start = perPage * (pageNum - 1);
+var end = start + perPage;
+
+// First hide all page parts
+// Then show those just for our page
+pageParts.hide()
+.slice(start, end).show();
+}
+});
+						
+}
+}
+});
+}
+}
+setTimeout(buildNewsletter);
+});
+
+}) // End document ready
+</script>
+{% endblock %}

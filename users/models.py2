@@ -1,0 +1,136 @@
+# Create your models here.
+from __future__ import unicode_literals
+
+from django.db import models
+from django.contrib.auth.models import (
+    BaseUserManager, AbstractBaseUser
+)
+
+from phonenumber_field.modelfields import PhoneNumberField
+from django.utils.translation import ugettext_lazy as _
+
+from django.core.urlresolvers import reverse 
+from PIL import Image
+
+
+
+class AfricomUserManager(BaseUserManager):
+    def create_user(self, email,first_name,last_name,password=None):
+        """
+        Creates and saves a User with the given email, date of
+        birth and password.
+        """
+        if not email:
+            raise ValueError('Please provide a valid email')
+
+        user = self.model(            
+             email=self.normalize_email(email),
+			first_name=first_name,
+			last_name=last_name
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self,email,first_name,last_name,password):
+        """
+        Creates and saves a superuser with the given email, date of
+        birth and password.
+        """
+        user = self.create_user(email,
+            password=password,          
+			first_name=first_name,
+			last_name=last_name
+			
+        )
+        user.is_admin = True
+	user.is_active = True
+        user.save(using=self._db)
+        return user
+
+
+def file(self, filename):
+        ext = filename.split('.')[-1]
+        file='{}.{}'.format(self.pk, ext)
+        url = "images/users/" + file
+        return url
+
+HOUSE_CHOICE=(
+        ('ONEIL','ONEIL'), ('SAKER','SAKER'), ('KANGSEN','KANGSEN'), ('VILLERHEUR','VILLERHEUR'),
+        ('GRESS','GRESS'), ('FONYONGA','FONYONGA'), ('ASHILI','ASHILI'), ('BUNGALOW ONE','BUNGALOW TWO'),
+        ('BUNGALOW ONE','BUNGALOW THREE'),('BUNGALOW ONE','BUNGALOW FOUR'),('BUNGALOW ONE','BUNGALOW FIVE'),
+        ('BUNGALOW ONE','BUNGALOW SIX')
+        )
+ROOM_CHOICE=[('ROOM  ' + str(i), 'ROOM  ' + str(i) ) for i in range(1,27)]
+
+
+class Boban(AbstractBaseUser):
+    email = models.EmailField(
+        verbose_name='email address',
+        max_length=255,unique=True, db_index=True
+    
+    )
+    nickname = models.CharField(max_length=128,verbose_name='Nickname')
+    date_of_birth = models.DateField(null=True)
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    first_name =  models.CharField(max_length=32)
+    last_name =  models.CharField(max_length=32)
+    house =  models.CharField(_('House/Bungalow'), max_length = 32, blank = True,choices=HOUSE_CHOICE,default="O'NEIL")
+    room =  models.CharField(_('Dorm/Room'), max_length = 32, blank = True,choices=ROOM_CHOICE,default="Room 1")
+    memoir=  models.CharField(_('Fun memories'), max_length = 255, blank = True)
+    country = models.CharField(_('Country'), max_length = 100, blank = True)
+    city = models.CharField(_('City'), max_length = 100, blank = True)
+    picture =  models.ImageField(upload_to=file, blank = True)
+    notification = models.BooleanField(_('Yes'),default=True)
+    is_active = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)  
+    activation_key = models.CharField(null=True,max_length=40)
+    key_expires = models.DateTimeField(null=True)	
+    objects = AfricomUserManager()
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name','last_name']
+    def get_full_name(self):
+        # The user is identified by their email address
+        return self.first_name
+
+    def get_short_name(self):
+        # The user is identified by their email address
+        return self.last_name
+
+    # On Python 3: def __str__(self):
+    def __unicode__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+    def get_absolute_url(self): 
+       return reverse('user_detail', kwargs={'pk': self.pk})
+
+       """ def save(self, size=(400, 300), *args, **kwargs):
+       
+        Save Photo after ensuring it is not blank.  Resize as needed.
+        
+        if not self.id and not self.picture:
+            return		
+        super(Boban, self).save(*args, **kwargs)
+        
+        filename = self.picture
+        image = Image.open(filename)    
+        image.thumbnail(size, Image.ANTIALIAS)
+        image.save(filename.path)
+		super(Boban, self).save(*args, **kwargs) """
+		
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_admin

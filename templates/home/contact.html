@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block main %}
+ <script type="text/javascript">
+ var RecaptchaOptions = {
+    theme : 'white'
+ };
+ </script>
+
+ <div>
+ <fieldset><h3>Contact</h3>
+
+
+ {% crispy form %}
+  </fieldset>
+ </div>
+ 
+ {% endblock %}
+
+ {% block javascript %}
+ {% endblock %}
+
+
+

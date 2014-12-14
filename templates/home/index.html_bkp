@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block main %}
+<link href="{%static "css/index/style.css"%}" rel="stylesheet" >
+
+<div class="row">
+    <div class="col-md-4" style = "border:solid 1px #ddd;">
+        <fieldset>
+            <legend>
+                <strong>Class Of</strong>
+            </legend>
+            <div style="overflow: scroll;height:190px;" >
+                <ul class="nav nav-pills nav-stacked"  id="ClassOf">
+                </ul>
+            </div>
+            </fieldset>
+</div>
+
+    <div class="col-md-8">
+        <div class="thumbnail">
+            <img src="{%static "images/CPC_1.jpg"%}" alt="Sample Image">
+        </div>
+
+    </div>
+</div>
+<br>
+<!-- Second row-->
+<div class="row">
+<div class="col-sm-5" style = "border:solid 1px #ddd;">
+
+    <fieldset>
+        <legend>
+            <strong>History</strong>
+        </legend>
+
+        <div id='history' style="widt:700px; ">
+           MOTTO - GOD KNOWLEDGE SERVICE
+  Cameroon Protestant college Bali is an educational establishment founded by the Basel Mission in 1949, but currently owned & run by the Presbyterian Mission in Cameroon. Essentially imparts general education to students of both sexes (aged 10-19years)& prepares them for the Cameroon GCE exams.
+            <a  href="{% url 'history' %}">More ...</a> 
+        </div>
+
+    </fieldset>
+</div>
+
+<br>
+
+<div  class="col-sm-7" style = "border:solid 1px #ddd;">	
+    <fieldset>
+        <legend>
+            <strong>Memoire</strong>
+            </legend>
+
+            <div style="width:500px">
+                <div id="slider1_container" style="position: relative; left:00px; width: 500px; height: 280px;">
+                    <!-- Slides Container -->
+                    <div u="slides" style="cursor: move; position: absolute;  left: 00px; top: 0px; width: 500px; height: 280px;">
+                      
+                       {% for boban in myuser %}
+                        <div>
+                            <div  class='memoire' u="image">
+                                {% if boban.picture %}
+                                <img src={{boban.picture.url_200x200}} class="img-circle" width="80" alt="Sample Image">
+                                {% else %}
+                                <img src="{%static "images/logo3.png"%}" class="img-circle" width="80"/>
+                                {% endif %}
+
+                                <div class='memoire-text'>
+                                    <ul id='memoire-info' class="nav-stacked">
+                                    <li>Name: {{boban.first_name}}</li>
+                                    <li>Batch of: {{boban.end_date}}</li>
+                                    <li>Nickname:{{boban.nickname}}</li>  
+                                    <li id='memoire'>{{boban.memoir}}</li> 
+                                    </ul>
+                                    </div>
+
+                                  <a class="memoire-anchor"  href="{% url 'memoire' %}">More ...</a>
+                                 
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+
+                    </div>		
+                </div>
+            </div>
+        </fieldset>
+</div>
+    </div> <!-- end Second row-->
+
+<br>
+<br>
+
+    <div class="row">
+        <fieldset>
+            <legend>
+                <strong> CPC vocabulary</strong>
+            </legend>	
+            <strong>Boban:</strong> An ex-student of CPC Bali. It is short for Bali Old Boys student association member. The term is use
+            used to both female and male students since it was first defined when CPC was an all boys school.
+            <br><br>
+
+            <strong>Camprocol:</strong> Short for Cameroon Protestant College Bali
+            <br>
+            <a  href="{% url 'define-word' %}">More ...</a> 
+
+        </fieldset>	
+    </div>
+
+    <br>
+    <div class="row">
+        <fieldset>
+            <legend>
+                <strong> Shaleh (Grammatic errors)</strong>
+            </legend>	
+            Asu Choup instead of Achu Soup
+
+        </fieldset>	
+    </div>
+
+    {% endblock %}
+    {% block javascript %}
+    <script src="{%static "js/jssor.slider.mini.js"%}"></script>
+ 
+    <script type="text/javascript">
+        $(document).ready(function($) {
+
+                          for ( i = 1954; i <= new Date().getFullYear(); i++) {
+                          $('#yearpicker').append($('<option />').val(i).html(i));
+
+                          $('#ClassOf').append('<li class="acti"><a href="/batch?class_of='+i+ '" >' + i + '</a></li>')
+
+                          }
+                          var options = {
+                          $AutoPlay : true
+                          };
+                          var jssor_slider1 = new $JssorSlider$('slider1_container', options);
+                         
+                          })
+
+                      </script>
+                      {% endblock %}

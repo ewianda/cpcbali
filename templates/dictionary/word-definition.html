@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+{% block main %}
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+ Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+ Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+ Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
+
+
+
+
+
+
+<div class='row media-body' style="min-height:400px;margin-left:150px;" >
+    <ul class="word-list" id = "words">
+
+        {% for word in object_list %}
+        
+             <li class="col-md-6 main-body">
+            <h4 > <a   href="#">{{word.word}}</a></h4>   
+            <span  class = 'username'  id="username" data-type="textarea" data-pk="{{word.pk}}" data-url="{% url 'word-edit' %}" data-title="{{word.word}}">{{word.definition}}</span>
+
+             <div class="post-control ">  
+              Defined by:{{word.user.first_name}}  <a class="edit-post-button" href="#">Edit Word</a> 
+			<a id="create-word" href="#" class="bn btn-prmary">Add Word</a>	  </div> 
+			
+			<hr>
+        </li>
+
+        {% empty %}
+No word
+        {% endfor %}
+    </ul>
+</div>
+
+<div style="position:relative" id="page-nav"></div>
+
+
+<div id="dialog-form" title="Define new word">
+    {%crispy form%}
+</div>
+
+
+
+      
+        
+             <div class="main col-md-6">
+			   {% for word in object_list %}
+            <h4><a   href="#">{{word.word}}</a></h4>   
+            <p><span  class = 'username'  id="username" data-type="textarea" data-pk="{{word.pk}}" data-url="{% url 'word-edit' %}" data-title="{{word.word}}">{{word.definition}}</span></p>
+
+             <div class="post-control ">  
+              Defined by:{{word.user.first_name}}  <a class="edit-post-button" href="#">Edit Word</a> 
+			<a id="create-word" href="#" class="bn btn-prmary">Add Word</a>	  </div> 
+			
+			 <hr>
+            
+
+        {% empty %}
+No word
+        {% endfor %}
+ </div>
+
+ 
+
+{% endblock %}
+
+
+
+
+{% block javascript %}
+
+
+<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="{% static "js/jquery-listnav.min.js"%}"></script>
+
+<script type="text/javascript">
+                                                       
+
+
+    $(document).ready(function() {
+
+	
+	$('.main').columnize({width:300});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+  $('.username').editable( );
+  $('.username').off('click');
+
+  $("a[class='edit-post-button']").on('click', function(e) {
+        e.preventDefault();
+       e.stopPropagation();
+ $textarea = $(this).closest('.main-body').find('.editable');
+
+$.ajax({url:"/ajax_check_auth/",
+ type: "POST",
+ success:function(data){
+ if(data=="True"){
+ console.log($textarea)
+        $textarea.editable('toggle');                                                      
+         }
+       else{
+           console.log(data)
+           var button = $('#loginButton');
+        var box = $('#loginBox');
+       var form = $('#loginForm');                                                                                                                              box.toggle()}
+                },
+error:function(err,ee,cc){
+}
+})
+
+
+
+            
+    });
+
+
+
+
+function checkAuth(Diag) {
+$.ajax({url:"/ajax_check_auth/",
+ type: "POST",
+  success:function(data){
+      if(data=="True"){
+        Diag.dialog( "open" );                                                              
+         }
+       else{
+           console.log(data)
+           var button = $('#loginButton');
+        var box = $('#loginBox');
+       var form = $('#loginForm');                                                                                                                              box.toggle()}
+                },
+error:function(err,ee,cc){
+}
+})
+}
+
+                      $("li:even").addClass("even");
+
+                     var dialog = $( "#dialog-form" ).dialog({
+autoOpen: false,
+height: 500,
+width: 650,
+modal: true,})//end dialog
+
+Di
+
+
+
+$( "a[id='create-word']" ).click(function(){checkAuth(dialog)}); // End button
+$( "a[id='edit-word']" ).click(function(){
+                               checkAuth(editdialog)
+                               
+                               
+                               }); // End button
+
+
+$('#words').listnav({showCounts: false, 		
+                    includeNums: false,
+                    removeDisabled: false,
+					
+                    // initLetter:'a',
+                    onClick:function(e){
+                    var pageParts = $(".listNavShow");
+                    // How many parts do we have?
+                    var numPages = pageParts.length;
+                    // How many parts do we want per page?
+                    var perPage = 8;
+                    // When the document loads we're on page 1
+                    // So to start with... hide everything else
+                    pageParts.slice(perPage).hide();
+                    // Apply simplePagination to our placeholder
+                    $("#page-nav").pagination({
+items: numPages,
+itemsOnPage: perPage,
+cssTheme: "light-theme",
+// We implement the actual pagination
+//   in this next function. It runs on
+//   the event that a user changes page
+onPageClick: function(pageNum) {
+// Which page parts do we show?
+var start = perPage * (pageNum - 1);
+var end = start + perPage;
+
+// First hide all page parts
+// Then show those just for our page
+pageParts.hide()
+.slice(start, end).show();
+}
+});
+
+
+}
+
+
+});// end listnav
+
+
+var pageParts = $(".listNavShow");
+
+// How many parts do we have?
+var numPages = pageParts.length;
+// How many parts do we want per page?
+var perPage = 2;
+
+// When the document loads we're on page 1
+// So to start with... hide everything else
+pageParts.slice(perPage).hide();
+// Apply simplePagination to our placeholder
+$("#page-nav").pagination({
+items: numPages,
+itemsOnPage: perPage,
+cssTheme: "light-theme",
+// We implement the actual pagination
+//   in this next function. It runs on
+//   the event that a user changes page
+onPageClick: function(pageNum) {
+// Which page parts do we show?
+var start = perPage * (pageNum - 1);
+var end = start + perPage;
+
+// First hide all page parts
+// Then show those just for our page
+pageParts.hide()
+.slice(start, end).show();
+}
+});
+}) // End document ready
+</script>
+{% endblock %}
