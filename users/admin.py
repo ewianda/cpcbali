@@ -1,12 +1,9 @@
-# Register your models here.
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
+from django.utils.translation import  ugettext_lazy as _
 from users.models import Boban,Batch
-
 
 
 class UserCreationForm(forms.ModelForm):
@@ -17,9 +14,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = Boban
-        fields = ('email','first_name','last_name','nickname')
-
-       # ('nickname', 'email')
+        fields = ('email', )
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -46,9 +41,8 @@ class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
-        model =Boban
-        #fields = '__all__'
-        fields =( 'email','password','first_name','last_name','nickname', 'is_active')
+        model = Boban
+        fields = ('email', 'password', 'is_active', 'is_admin','is_staff')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -57,37 +51,33 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 
-
-
 class BobanAdmin(UserAdmin):
     # The forms to add and change user instances
-     
-    # The fields to be used in displaying the User model.
-    # These override the definitions on the base UserAdmin
-    # that reference specific fields on auth.User.
-    list_display = ('email','username', 'nickname','first_name','last_name','years','end_date','house','room')
-    list_filter = ('email',)
+    form = UserChangeForm
+    add_form = UserCreationForm
     fieldsets = (
-        (None, {'fields': ('username','nickname','first_name','last_name', 'password','years','end_date','house','room',)}),
-        ('Permissions', {'fields': ('is_active','activation_key',)}),
+        (None, {'fields': ('email', 'password','years',)}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+                                       'groups', 'user_permissions')}),
+        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
-    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
-    # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username','nickname', 'years','end_date','house','room','email', 'password1', 'password2','is_active','activation_key',)}
+            'fields': ('email', 'password1', 'password2')}
         ),
-        ('Important dates', {'fields': ('last_login',)}),
     )
-    search_fields = ('email',)
+    list_display = ('email', 'first_name', 'last_name', 'is_staff','is_active',)
+    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
+    search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
-    filter_horizontal = ()
+    filter_horizontal = ('groups', 'user_permissions',)
+
 
 # Now register the new UserAdmin...
 admin.site.register(Boban, BobanAdmin)
 admin.site.register(Batch)
-
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
-admin.site.unregister(Group)
+#admin.site.unregister(Group)

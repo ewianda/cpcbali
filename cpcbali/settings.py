@@ -45,7 +45,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'users', 'social.apps.django_app.default',
     'crispy_forms','dictionary','captcha','scholarship',
-    'django.contrib.comments','django_comments_xtd'
+    'django.contrib.comments','django_comments_xtd',
+     'registration',
+      'ckeditor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,15 +62,22 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'cpcbali.urls'
 
 WSGI_APPLICATION = 'cpcbali.wsgi.application'
+CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_CONFIGS = {
+    'default': {
 
-
+        'height': 300,
+        'width': 500,
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/wianda/Projects/Django/cpcbali/db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 STATICFILES_DIRS = (
@@ -128,8 +137,6 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.linkedin.LinkedinOAuth',
     'social.backends.linkedin.LinkedinOAuth2',
     'social.backends.yahoo.YahooOpenId',
-
-
    'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -144,8 +151,21 @@ USE_L10N = True
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 USE_TZ = True
+
+
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_EMAIL_SUBJECT_PREFIX = 'Your Registration With LSCDS'
+SEND_ACTIVATION_EMAIL = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/profile'
+
+
 AUTH_USER_MODEL = 'users.Boban'
 SOCIAL_AUTH_USER_MODEL = 'users.Boban'
+
+
 SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
@@ -158,18 +178,20 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
-   # 'example.app.pipeline.require_email',
     'social.pipeline.social_auth.associate_by_email',
-    'social.pipeline.mail.mail_validation',
+   # 'social.pipeline.mail.mail_validation',
+   # 'lscds_site.pipeline.require_email',
+    'cpcbali.pipeline.social_extra_data',
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
-    #'social.pipeline.debug.debug'
+    'cpcbali.pipeline.user_details_complete'
 )
+
 USER_FIELDS = ['email']
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL=True
-
+USERNAME_IS_FULL_EMAIL=True
 
 SOCIAL_AUTH_LINKEDIN_KEY='75epozhfxnkl2e'
 SOCIAL_AUTH_LINKEDIN_SECRET='SnevZhT73Nfauqsu'
@@ -197,13 +219,13 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 STATIC_URL = '/static/'
 SITE_ID = 1
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL =  '/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'STATIC_URL')
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 COMMENTS_XTD_MAX_THREAD_LEVEL = 0
 COMMENTS_APP = "django_comments_xtd"
-EMAIL_HOST          = "smtp.gmail.com" 
+EMAIL_HOST          = "smtp.gmail.com"
 EMAIL_PORT          = "587"
 EMAIL_USE_TLS       = True # Yes for Gmail
 DEFAULT_FROM_EMAIL  = "Alice Bloggs <alice@example.com>"

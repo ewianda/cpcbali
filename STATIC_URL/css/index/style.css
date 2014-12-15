@@ -1,0 +1,36 @@
+legend{margin-bottom: 0px;}
+.memoire{
+border:solid #4b4dc6 2px;
+background-color:#4b4dc6;
+border-radius: 50px;
+box-shadow: 0px 1em 1em 1em rgba(255,255,255,0.5) inset;
+}
+.memoire img {position:absolute;
+left:200px;}
+#memoire{
+margin-top:10px;
+color:white;
+}
+.memoire-text{position:absolute;
+top:80px;
+
+
+}
+#memoire-info{
+padding: 0px;
+margin-left: 10px;
+font-size: 14px;
+line-height: 1.4em;
+font-weight: bold;
+overflow: hidden;
+color: #f6fd00;
+margin-left:50px;
+}
+.memoire-anchor{
+position:absolute;
+bottom:10px;
+right:10px;
+color:white;
+}
+
+

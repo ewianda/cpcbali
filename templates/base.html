@@ -2,6 +2,10 @@
 {% load future %}
 {% load staticfiles %}
 {% load static %}
+
+{% load i18n %}
+{% load url from future %}
+
 {% load crispy_forms_tags %}
 
 <!-- saved from url=(0023)http://www.utoronto.ca/ -->
@@ -10,7 +14,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        
+
         <title>Cameroon Protestant College Bali</title>
         <link rel="shortcut icon" href="http://www.utoronto.ca/__shared/templates/images/U-of-T-favicon.png">
         <!--link rel="stylesheet" type="text/css" media="screen" href="{%static "css/css_reset.css"%}"-->
@@ -24,8 +28,8 @@
         <link href="{%static "css/simplePagination.css"%}" rel="stylesheet" >
          <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="{% static "css/bootstrap-social.css" %}" type="text/css" media="screen" />
-     
-	 
+
+
         <link rel="stylesheet" type="text/css" media="screen" href="{%static "css/style.css"%}">
  <link rel="stylesheet" type="text/css" media="screen" href="{%static "css/bootstrap-editable.css"%}">
  {% block css %}{% endblock %}
@@ -34,21 +38,21 @@
 
 
         <script src='{%static "js/jquery-2.1.0.min.js"%}'></script>
-	 <script src='{%static "js/bootstrap.min.js"%}'></script>	
+	 <script src='{%static "js/bootstrap.min.js"%}'></script>
 	 <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <script src='{% static "js/select2.min.js"%}'></script>
 <script src='{% static "js/jquery.simplePagination.js"%}'></script>
 <script src='{% static "js/bootstrap-editable.min.js"%}'></script>
 <script src='{% static "js/jquery.columnizer.min.js"%}'></script>
 <script src='{%static "js/login.js"%}'></script>
-     <!--[if IE]> <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>   
+     <!--[if IE]> <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		<script src="http://code.jquery.com/jquery.js"></script>
-        
+
         <![endif]-->
-	<style type="text/css"> 
+	<style type="text/css">
             #mainnav li:hover ul, #mainnav li.sfhover ul {left: 0px; visibility:inherit;}
             #banner-ss {z-index:0 !important;}
-        </style>	
+        </style>
 
     </head>
     <body>
@@ -67,13 +71,13 @@
                 <div class="col-md-6 pull-right">
                     <ul class="clearfix tools-links ga-clicks" >
                         {% if user.is_authenticated %}
-                        <li><a id="profileButton" href="{% url 'user_detail' pk=user.id %}"><span>Profile</span></a></li>
+                        <li><a id="profileButton" href="{% url 'profile'  %}"><span>Profile</span></a></li>
 
-                        <li><a id="profileButton" href="{% url 'logout' next_page='home' %}"><span>Logout</span></a></li>
-                        {% else %} 
+                        <li><a id="profileButton" href="{% url 'auth_logout' %}?next=/"><span>Logout</span></a></li>
+                        {% else %}
                         <li><a href="#" id="loginButton"><span>I am Boban. Let me in</span></a>
-                        {% endif %} 
-                        <div id="loginBox">                
+                        {% endif %}
+                        <div id="loginBox">
                             <!-- Login Starts Here -->
                             <form id="loginForm">{% csrf_token %}
                                 <div class="message"><strong></strong></div>
@@ -82,32 +86,32 @@
                                     <div class="form-group">
                                         <input type="email" class="form-control" id="inputEmail3" name='username' placeholder="Email">
                                     </div>
-                                    <div class="form-group">  
+                                    <div class="form-group">
                                         <input type="password" class="form-control" id="inputPassword3" name='password' placeholder="Password">
                                     </div>
-                                    <div class="form-group">   
-                                        <button type="submit" class="btn btn-block btn-primary">Sign in</button> 
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-block btn-primary">Sign in</button>
                                     </div>
 
-                                    <div class="form-roup">  
+                                    <div class="form-roup">
                                         <div class="checkbox"><input type="checkbox">
                                             <span> <label>  Remember me
-                                    </label></span> </div> 
+                                    </label></span> </div>
                                 </div>
                                 </fieldset>
                                 <input type="hidden" name="next" value="{% firstof request.path '/' %}" />
                                 <a href="#"> Forgot your password?</a>
-<div class="OR" id ="first">OR</div>								 
+<div class="OR" id ="first">OR</div>
 <div class='social'>
 <a class="btn btn-social  btn-google-plus" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}"><i class="fa fa-google-plus"> </i>&nbsp;</a>
 <a class="btn btn-social  btn-linkedin" href="{% url 'social:begin' 'linkedin' %}?next={{ request.path }}"><i class="fa fa-linkedin"> </i>&nbsp;</a>
 <a class="btn btn-social  btn-twitter" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}" ><i class="fa fa-twitter"> </i>&nbsp;</a>
-<a class="btn btn-social  btn-yahoo" href="{% url 'social:begin' 'yahoo' %}" ><i class="fa fa-yahoo"> </i> &nbsp;</a>
-<a class="btn btn-social  btn-facebook" href="{% url 'social:begin' 'facebook' %}"><i class="fa fa-facebook"></i>&nbsp;</a>
+<a class="btn btn-social  btn-yahoo" href="{% url 'social:begin' 'yahoo' %}?next={{ request.path }}" ><i class="fa fa-yahoo"> </i> &nbsp;</a>
+<a class="btn btn-social  btn-facebook" href="{% url 'social:begin' 'facebook' %}" ><i class="fa fa-facebook"></i>&nbsp;</a>
 </div>
 <div class="OR" id ="second">OR</div>
- 
-<a href="{% url 'register' %}" class="btn btn-primary btn-lg btn-block active" >Create an account</a>   
+
+<a href="{% url 'registration_register' %}" class="btn btn-primary btn-lg btn-block active" >Create an account</a>
                             </form>  <!-- Login Ends Here -->
                             </div>
                         </div>
@@ -119,13 +123,13 @@
 
             </div>
 	 </div>
-	
+
 	  <!-- end OF HEADER -->
-	
+
  <div class="c">
 
-      <div class="masthead">		
-		
+      <div class="masthead">
+
 		   <div class="container">
         <ul class="nav nav-justified">
           <li><a href="{% url 'home' %}" class="arrow">Home</a></li>
@@ -138,25 +142,25 @@
                   <li class='dropdown'><a href="#" class='dropdown-toggle' data-toggle='dropdown'>Bobs Helping Bobs<b class="caret"></b></a>
                   <ul class="dropdown-menu" role="menu">
                 <li><a href="{% url 'scholarship' %}">Scholarships</a></li>
-                <li><a href="#">Career advice</a></li>                
+                <li><a href="#">Career advice</a></li>
 				<li><a href="{% url 'contact' %}" class="arrow">Contribute</a></li>
-				
+
               </ul>
                   </li>
-          
-     
-		 
-		  
+
+
+
+
         </ul>
-      
+
   </div>
     </div>
-	
-	
-	
-	  
+
+
+
+
     <div class="container" style="min-height:400px; margin-top:40px;">
-	
+
 
  {% block main %} {% endblock %}
   </div>
@@ -171,12 +175,12 @@
 </div>
 
                     <!--img src="{%static "images/CPC_2.png"%}" alt="Smiley face" width="984" -->
-                </div> 
-            </div>  
-            </footer> 
+                </div>
+            </div>
+            </footer>
 
  </div> <!-- /container -->
-    
+
 {% block javascript %}{% endblock %}
     <script>
  $(document).ready(function($) {
@@ -186,9 +190,9 @@
             $.ajax({url:'/accounts/login/',
             data:$(this).serialize(),
             type:'POST',
-            success:function(data){ 
+            success:function(data){
                 if (!data.message){
-                    location.reload(); 
+                    location.reload();
                     // of course you can do something more fancyi with your respone
                     } else {
                     $('.message').html(data.message);
@@ -199,19 +203,19 @@
             error:function(ee,rr,ss){
                 console.log(ee)
                 console.log(rr)
-                console.log(ss)                
+                console.log(ss)
                 alert('Server error occured. Contact network administrator')
             }
-            
+
         });
             e.preventDefault();
 
         })) // end on submit
-		
-	
+
+
     //only buttons
-   $('body').on('click', function (e) { 
-    $("#loginButton, a[class='edit-post-button'],a.create-word").each(function () {	  
+   $('body').on('click', function (e) {
+    $("#loginButton, a[class='edit-post-button'],a.create-word").each(function () {
         //the 'is' for buttons that trigger popups
         //the 'has' for icons within a button that triggers a popup
         if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
@@ -219,9 +223,9 @@
         }
     });
 });// end on click
-		
-		
- 
+
+
+
 
                           for ( i = 1954; i <= new Date().getFullYear(); i++) {
                           $('#yearpicker').append($('<option />').val(i).html(i));
@@ -231,11 +235,11 @@
 
 
 
-		
+
 </script>
 
 
-    
+
 
 </body></html>
 

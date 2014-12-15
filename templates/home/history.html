@@ -2,6 +2,29 @@
 {% load staticfiles %}
 {% load static %}
 {% block main %}
+<div id="fb-root"></div>
+
+ <script>
+ /*
+      $(document).ready(function() {
+
+           $.ajaxSetup({ cache: true,
+
+               crossDomain: true,
+           });
+ $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+    FB.init({
+      appId: '766324943419993',
+      xfbml      : true,
+          version    : 'v2.1'
+    });
+    $('#loginbutton,#feedbutton').removeAttr('disabled');
+    //FB.getLoginStatus(updateStatusCallback);
+  });
+
+      });
+      */
+    </script>
 
 <div class="row">
 <div style="">
@@ -12,8 +35,8 @@
         </div>
 
     Essentially imparts general education to students of both sexes (aged 10-19years)& prepares them for the Cameroon GCE exams.</p>
-    
-    
+
+
 <p>Cameroon Protestant college Bali is an educational establishment founded by the Basel Mission in 1949, but currently owned & run by the Presbyterian Mission in Cameroon. Essentially imparts general education to students of both sexes (aged 10-19years)& prepares them for the Cameroon GCE exams.</p>
 
 
@@ -24,6 +47,6 @@
 
 
 </div>
-
+<div class="fb-comments" data-href="http://ewianda.pythonanywhere.com/history" data-numposts="5" data-colorscheme="light"></div>
 
 {% endblock %}

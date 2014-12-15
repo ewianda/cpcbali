@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block main %}
+ <div>
+ <fieldset><h3>PROFILE</h3>
+
+
+ {% crispy form %}
+  </fieldset>
+ </div>
+ 
+{% endblock %}
