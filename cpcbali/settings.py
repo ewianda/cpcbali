@@ -30,7 +30,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -222,7 +222,6 @@ SOCIAL_AUTH_NEW_USER_REDIRECT_URL =  '/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'STATIC_URL')
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 COMMENTS_XTD_MAX_THREAD_LEVEL = 0
 COMMENTS_APP = "django_comments_xtd"
 EMAIL_HOST          = "smtp.gmail.com"

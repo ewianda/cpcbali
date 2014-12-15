@@ -82,10 +82,21 @@ class BobanRegistrationView(RegistrationView):
         signals.user_registered.send(sender=self.__class__,
                                      user=new_user,
                                      request=request)
-        form_class = self.get_form_class(request)
-        form = self.get_form(form_class)
-        if form.is_valid():
-            form.save()
+        changed = False
+        protected = ('email', 'id', 'pk')
+        # Update user model attributes with the new data sent by the current
+        # provider. Update on some attributes is disabled by default, for
+        # example username and id fields. It's also possible to disable update
+        # on fields defined in SOCIAL_AUTH_PROTECTED_FIELDS.
+        for name, value in cleaned_data.items():
+            print value
+            if not hasattr(new_user, name):
+                continue
+            current_value = getattr(new_user, name, None)
+            if not current_value or name not in protected:
+                changed |= current_value != value
+                setattr(new_user, name, value)
+        new_user.save()
         return new_user
 
 
