@@ -5,6 +5,13 @@ from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from users.models import Boban,Batch
 from django.core.urlresolvers import reverse
+from django.views.generic.list import ListView
+from django.utils import timezone
+
+from home.models import History
+
+class HistoryListView(ListView):
+      model = History
 
 
 def home(request):   

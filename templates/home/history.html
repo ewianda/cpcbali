@@ -26,27 +26,12 @@
       */
     </script>
 
-<div class="row">
-<div style="">
-
-    <p>Cameroon Protestant college Bali is an educational establishment founded by the Basel Mission in 1949, but currently owned & run by the Presbyterian Mission in Cameroon.
-     <div class="thumbnail col-sm-4">
-            <img src="{%static "images/CPC_1.jpg"%}" alt="Sample Image">
-        </div>
-
-    Essentially imparts general education to students of both sexes (aged 10-19years)& prepares them for the Cameroon GCE exams.</p>
-
-
-<p>Cameroon Protestant college Bali is an educational establishment founded by the Basel Mission in 1949, but currently owned & run by the Presbyterian Mission in Cameroon. Essentially imparts general education to students of both sexes (aged 10-19years)& prepares them for the Cameroon GCE exams.</p>
-
-
- <p>Cameroon Protestant college Bali is an educational establishment founded by the Basel Mission in 1949, but currently owned & run by the Presbyterian Mission in Cameroon. Essentially imparts general education to students of both sexes (aged 10-19years)& prepares them for the Cameroon GCE exams.</p>
-
-
-
-
-
+<div class="row"style="">
+{% for history in object_list %}
+    {{ history.history|safe }}
+{% empty %}
+    No articles yet
+{% endfor %}
 </div>
 <div class="fb-comments" data-href="http://ewianda.pythonanywhere.com/history" data-numposts="5" data-colorscheme="light"></div>
-
 {% endblock %}
