@@ -30,7 +30,9 @@ class WordCreate(CreateView):
     model = Word
     form_class = WordForm
     success_url = '/define-word/'
-    template_name = "dictionary/define-word.html"
+    
+   # template_name = "dictionary/define-word.html"
+    template_name = "dictionary/word-definition.html"
     def get_context_data(self, **kwargs):
         words = self.model.objects.all()
         wd = self.request.GET.get('word')
