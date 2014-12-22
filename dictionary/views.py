@@ -26,17 +26,17 @@ class WordForm(ModelForm):
             'definition': Textarea(attrs={'cols': 8, 'rows': 10}),
         }
 
-class WordCreate(CreateView):
+class WordList(CreateView):
     model = Word
     form_class = WordForm
     success_url = '/define-word/'
-    
+    paginate_by = 8  #and that's it !!
    # template_name = "dictionary/define-word.html"
     template_name = "dictionary/word-definition.html"
     def get_context_data(self, **kwargs):
         words = self.model.objects.all()
         wd = self.request.GET.get('word')
-        print wd
+        print "f-------------------------------------------ffffffffff"
         if wd:
             words = words.filter(word__startswith=wd)
         kwargs['object_list'] = words.order_by('word')
@@ -46,9 +46,17 @@ class WordCreate(CreateView):
         return super(WordCreate, self).form_valid(form)
 		
 	
-class WordList(ListView):
+class WordCreate(ListView):
     model = Word
     template_name = "dictionary/word-definition.html"
+    paginate_by = 8  #and that's it !!
+    def get_queryset(self):
+        wd = self.request.GET.get('word',None)
+        if wd:
+          return Word.objects.filter(word__startswith=wd).order_by('word')
+        else:
+          return Word.objects.all().order_by('word')
+
 
 
 def WordUpdate(request):    

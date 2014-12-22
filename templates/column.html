@@ -1,0 +1,19 @@
+<div class='row'>
+
+<div class = 'col-md-6'>
+{% for words  in col_one %}
+<p>{{forloop.counter }}<strong> {{ words.word }}</strong> </p>
+<li> {{ words.definition }} </li>
+
+{% endfor %}
+</div>
+<div class = 'col-md-6'>
+    {% for words  in col_two %}
+    <p> {{forloop.counter }}<strong> {{ words.word }}</strong> </p>
+
+<li> {{ words.definition }} </li>
+
+{% endfor %}
+</div>
+</div>
+

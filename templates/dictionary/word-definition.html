@@ -2,11 +2,35 @@
 {% load staticfiles %}
 {% load static %}
 {% load crispy_forms_tags %}
-
+{% load dictionary_tag %}
 
 
 
 {% block main %}
+
+{%   column_tag object_list  %}
+{% if is_paginated %}
+        <ul class="pagination pagination-centered">
+            {% if object_list.has_previous %}
+                <li><a href="?page=1"></a></li>
+                <li><a href="?page={{ object_list.previous_page_number }}"></a></li>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                <li {% if object_list.number == i %} class="active" {% endif %}><a href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+
+            {% if object_list.has_next %}
+                <li><a href="?page={{ object_list.next_page_number }}">></a></li>
+                E<li><a href="?page={{ object_list.paginator.num_pages }}">>></a></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+        
+{% endblock %}
+
+
+
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
  Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
  Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
@@ -69,7 +93,6 @@ No word
 
  
 
-{% endblock %}
 
 
 
