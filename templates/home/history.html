@@ -2,6 +2,57 @@
 {% load staticfiles %}
 {% load static %}
 {% block main %}
+
+    </script>
+    <!--=== Profile ===-->
+    <div class="profile">   
+        <div class="container content">
+            <div class="row">
+                <!--Left Sidebar-->
+                
+                        
+                <div class="col-md-3 md-margin-bottom-40">
+                    <img class="img-responsive profile-img margin-bottom-20" src="{% static "history/oneil.jpg" %}" alt="">
+                    
+                    <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
+                        {% for history in object_list %}
+                        <li class="{% if forloop.counter == 1 %} active {% endif %} list-group-item">
+                            <a data-toggle="tab" href="#{{ history.css_id}}"><i class="fa fa-bar-chart-o"></i> {{ history.name}}</a>
+                        </li>
+                         {% empty %}
+                              No articles yet
+                    {% endfor %}
+                    </ul>   
+                </div>
+                <!--End Left Sidebar-->
+                
+                <div class="col-md-9">
+                    <!--Profile Body-->
+                     
+                    <div class="tab-content profile-body margin-bottom-20">
+                    {% for history in object_list %}
+                      <div id="{{ history.css_id}}" class="profile-edit tab-pane fade {% if forloop.counter == 1 %} in active {% endif %}">                      
+                        {{ history.history|safe }}
+                       
+                      </div>
+                       {% empty %}
+                              No articles yet
+                    {% endfor %}
+                    </div>
+                    <!--End Profile Body-->
+                    
+                    
+                </div>
+                
+            </div><!--/end row-->
+        </div><!--/container-->    
+    </div>      
+    <!--=== End Profile ===-->
+<div class="row"style="">
+
+</div>
+<div class="fb-comments" data-href="http://ewianda.pythonanywhere.com/history" data-numposts="5" data-colorscheme="light"></div>
+{% endblock %}
 <div id="fb-root"></div>
 
  <script>
@@ -24,14 +75,3 @@
 
       });
       */
-    </script>
-
-<div class="row"style="">
-{% for history in object_list %}
-    {{ history.history|safe }}
-{% empty %}
-    No articles yet
-{% endfor %}
-</div>
-<div class="fb-comments" data-href="http://ewianda.pythonanywhere.com/history" data-numposts="5" data-colorscheme="light"></div>
-{% endblock %}

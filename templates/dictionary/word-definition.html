@@ -7,8 +7,9 @@
 
 
 {% block main %}
-
+<div class="container" style = "border: solid red 2pt">
 {%   column_tag object_list  %}
+</div>
 {% if is_paginated %}
         <ul class="pagination pagination-centered">
             {% if object_list.has_previous %}

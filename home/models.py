@@ -6,6 +6,10 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class History(models.Model):
-  history =  RichTextField(_('Fun memories'), max_length = 255, blank = True)
+  name =  models.CharField(max_length=30)
+  history =  RichTextField(_('title'), max_length = 255, blank = True)
+  
   def __unicode__(self):
-	 return "HISTORY"
+	 return self.name
+  def css_id(self):
+      return self.name.replace(" ", "")
