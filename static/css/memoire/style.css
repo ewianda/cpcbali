@@ -25,7 +25,64 @@ position: relative;
 padding-right: 0px;
 border-right: solid grey 0px;
 }
+.profile-body {
+padding: 20px;
+background: #f7f7f7;
+}
 
+.profile-blog {
+padding: 20px;
+background: #fff;
+}
+
+.profile-blog img {
+float: left;
+width: 50px;
+height: 50px;
+margin-right: 20px;
+}
+.rounded-x {
+border-radius: 50% !important;
+}
+ .name-location {
+overflow: hidden;
+}
+
+ .name-location strong {
+color: #555;
+display: block;
+font-size: 16px;
+}
+
+.name-location span i {
+color: #72c02c;
+font-size: 18px;
+margin-right: 5px;
+}
+
+li a {
+text-decoration: none;
+color: #4b4dc6;
+font-size: 13px;
+line-height: 1.6;
+font-weight: normal;
+}
+
+.share-list li i {
+color: #72c02c;
+margin-right: 5px;
+}
+ .name-location span a {
+color: #555;
+}
+
+.margin-bottom-20 {
+margin-bottom: 20px;
+}
+
+.margin-bottom-5, .margin-bottom-10, .margin-bottom-15, .margin-bottom-20, .margin-bottom-25, .margin-bottom-30, .margin-bottom-35, .margin-bottom-40, .margin-bottom-45, .margin-bottom-50, .margin-bottom-55, .margin-bottom-60 {
+clear: both;
+}
 
 
 

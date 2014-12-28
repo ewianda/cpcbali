@@ -110,12 +110,7 @@ border-top: 1px solid #e5e5e5;
 
 }
 
-hr { display: block; height: 1px;
-    border: 0; border-top: 1px solid  #C3C488;;
-    margin: 1em 0; padding: 0;     
-    box-shadow: 0px 1px 3px #4b4dc6 inset, 0px 0px 8px #C3C488;;	
-	border-style: inset;
-border-width: 1px;}
+
 /*.asteriskField {
                 display: none;
             }
