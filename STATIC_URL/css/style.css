@@ -20,14 +20,15 @@ ul{list-style:none;margin:0;padding:0}
 #id_honeypot {
     display: none;
 }
-li a{text-decoration:none}
-li a:hover{text-decoration:underline}
+li a{text-decoration:none;color:#4b4dc6;font-weight:900;}
+li a:hover{text-decoration:none;color:#4b4dc6;font-weight:900;}
 li.more{background:0 0;font-weight:700;line-height:2.5em}
 input{font:1em Arial,Helvetica,sans-serif}
 
 
 #wrapper{text-align:left;margin:0 auto;width:830px}
 
+a a:active a:hover {color:#950197;}
 
 li.main-body{
 padding-right:50px;
@@ -302,4 +303,7 @@ color: blue;
 font-weight: 700;
 font-size: 8pt;
 }
+
+
+
 
