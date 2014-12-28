@@ -10,6 +10,6 @@ class History(models.Model):
   history =  RichTextField(_('title'), max_length = 255, blank = True)
   
   def __unicode__(self):
-	 return self.name
+	 return name
   def css_id(self):
       return self.name.replace(" ", "")

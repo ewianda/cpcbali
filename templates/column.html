@@ -2,16 +2,29 @@
 
 <div class = 'col-sm-6'>
 {% for words  in col_one %}
-<p>{{forloop.counter }}<strong> {{ words.word }}</strong> </p>
-<li> {{ words.definition }} </li>
+<h4><strong> {{ words.word |title}}</strong> </h4>
+<div class="blog-post-tags">
+  <ul class="list-unstyled list-inline blog-info">
+      <li><i class="fa fa-calendar"></i> February 02, 2013</li>
+      <li><i class="fa fa-pencil"></i> {% firstof words.user.nickname words.user.get_full_name %}</li>
+      <li><i class="fa fa-comments"></i> <a href="#">24 Comments</a></li>
+   </ul>
+ </div>
+<p align="justify"> {{ words.definition }} </p>
 
 {% endfor %}
 </div>
 <div class = 'col-sm-6'>
     {% for words  in col_two %}
-    <p> {{forloop.counter }}<strong> {{ words.word }}</strong> </p>
-
-<li> {{ words.definition }} </li>
+    <h4> <strong> {{ words.word|title }}</strong> </h4>
+<div class="blog-post-tags">
+  <ul class="list-unstyled list-inline blog-info">
+      <li><i class="fa fa-calendar"></i> February 02, 2013</li>
+      <li><i class="fa fa-pencil"></i> {% firstof words.user.nickname words.user.get_full_name %}</li>
+      <li><i class="fa fa-comments"></i> <a href="#">24 Comments</a></li>
+   </ul>
+ </div>
+<p align="justify"> {{ words.definition }} </p>
 
 {% endfor %}
 </div>

@@ -7,7 +7,11 @@
 
 
 {% block main %}
-<div class="container" style = "border: solid red 2pt">
+<link href="{%static "css/dictionary/style.css"%}" rel="stylesheet" >
+
+<div class="row">
+
+<div class="col-md-offset-1 col-md-10" style = "border: solid  2pt">
 {%   column_tag object_list  %}
 </div>
 {% if is_paginated %}
@@ -27,7 +31,7 @@
             {% endif %}
         </ul>
         {% endif %}
-        
+   </div>     
 {% endblock %}
 
 

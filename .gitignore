@@ -62,4 +62,8 @@ env
 db.sqlite3
 *.lo
 *.py.s
+flush.sh
+.project
+.pydevproject
+*.swo
 =======

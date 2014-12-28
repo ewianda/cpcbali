@@ -1,0 +1,16 @@
+.blog-post-tags {
+padding: 5px 0 8px;
+margin-bottom: 10px;
+border-top: solid 1px #eee;
+border-bottom: solid 1px #eee;
+}
+
+.blog-post-tags ul.blog-info {
+color: #950197;
+margin-bottom: 3px;
+}
+
+.blog-post-tags li {
+font-size: 12px;
+}
+
