@@ -1,0 +1,44 @@
+{% extends "chapters/base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+ <div class = 'row'> 
+{% for chapters in object_list %}
+
+
+<div class='col-md-4'>
+{% if chapters.logo %}
+<span> <stong> {{chapters.name}} </strong> </span>
+
+  <img src={{chapters.logo.url_200x200}} class="img-circle" width="80" alt="Sample Image">
+          {% else %}
+           <img src="{% static "images/logo3.png"%}" class="img-circle" width="80"/>
+           {% endif %} 
+
+        
+        <div class="name-location">
+            
+            <span><i class="fa fa-map-marker"></i><a href="#">{{chapters.location}},</a> <a href="#">US</a></span>
+          </div>
+ 
+ 
+ </div>
+ {% if forloop.last %}</div> 
+ {% else %}
+  {% if forloop.counter|divisibleby:"3" %}
+ </div>  <div class='row margin-bottom-20'> {% endif %}{% endif %}
+ {% empty %}
+ No chaptersi
+ {% endfor %}
+ 
+
+{% endblock %}
+
+{% block side_bar %} 
+ {% if user.is_authenticated %}
+{% crispy form %}
+{% endif  %}
+{% endblock %}
+
+

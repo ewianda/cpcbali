@@ -19,7 +19,6 @@ from django.conf import settings
 from django_thumbs.db.models import ImageWithThumbsField
 import os
 from datetime import date
-
 from ckeditor.fields import RichTextField
 
 
@@ -125,7 +124,7 @@ class Boban(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(_('City'), max_length = 100, blank = True)
     picture =  ImageWithThumbsField(upload_to=file, blank = True, sizes=((125,125),(200,200)))
     notification = models.BooleanField(_('Receive info about Boba events'),default=True)
-
+    chapter = models.ManyToManyField('chapters.Chapter')
     objects =MyUserManager()
 
     USERNAME_FIELD = 'email'

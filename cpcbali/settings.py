@@ -47,7 +47,7 @@ INSTALLED_APPS = (
     'crispy_forms','dictionary','captcha','scholarship',
     'django.contrib.comments','django_comments_xtd',
      'registration',
-      'ckeditor','home',
+      'ckeditor','home','chapters',
 )
 
 MIDDLEWARE_CLASSES = (

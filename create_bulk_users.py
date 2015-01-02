@@ -32,3 +32,24 @@ for i in range(100):
     #words.append(word)
 Word.objects.bulk_create(words)
 #Boban.objects.bulk_create(users)
+img = 'images/logo.png' 
+from users.models import Boban
+from chapters.models import Chapter
+import lipsum
+g = lipsum.Generator()
+for i in range(10):
+    if i==0:
+      continue
+    user = Boban.objects.get(pk=i)
+    if not user.id:
+      continue
+    w=g.generate_paragraph()
+    word=  Chapter(creator = user,location=g.dictionary[-i], name=g.dictionary[-i] + '  Chapter', description=g.generate_paragraph())
+    word.cover=img
+    word.logo=img
+    word.save()
+    #print word.user.id
+    #words.append(word)
+Word.objects.bulk_create(words)
+
+
