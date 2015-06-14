@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+  {% block title %}
+                              History 
+{% endblock %}
+{% block main %}
+<link href="{%static "css/history/style.css"%}" rel="stylesheet" >
+<!--=== Profile ===-->
+<div class="profile">   
+    <div class="container content">
+        <div class="row">
+                       
+         
+            <!--End Left Sidebar-->
+       <div class="col-md-10">
+                <!--Profile Body-->
+   {% block content %}
+   {% endblock  %}
+   
+       </div>
+        <!--Left Sidebar-->                   
+            <div class="col-md-2 md-margin-bottom-40">            
+{% block right_bar %}
+
+ {% endblock  %} 
+        </div>
+                <!--End Profile Body-->
+   
+  
+            </div>
+
+        </div><!--/end row-->
+    </div><!--/container-->    
+</div>      
+<!--=== End Profile ===-->
+{% endblock  %}

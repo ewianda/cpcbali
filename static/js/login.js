@@ -32,7 +32,7 @@ $(function() {
     var box = $('#loginBox');
     var form = $('#loginForm');
     //button.removeAttr('href');
-	$("#loginButton").popover({   placement : 'bottom',                                                                                                                                                                                                                                                                                                                                              
+	$("#oginButton").popover({   placement : 'bottom',                                                                                                                                                                                                                                                                                                                                              
                                            html: true,
                                            title: function () {
                                                 return "Login";

@@ -42,7 +42,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = Boban
-        fields = ('email', 'password', 'is_active', 'is_admin','is_staff')
+        fields = ('email', 'password', 'gender', 'years', 'is_active', 'is_admin','is_staff')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -56,7 +56,7 @@ class BobanAdmin(UserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
     fieldsets = (
-        (None, {'fields': ('email', 'password','years',)}),
+        (None, {'fields': ('email', 'password','years','gender',)}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),

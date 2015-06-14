@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load dialogos_tags %}
+ {% block title %}
+   {{ object.title }}                            
+
+
+                {% endblock %}
+
+{% block main %}
+<h1>{{ object.title }}</h1>
+<p>{{ object.body |safe }}</p>
+
+	{% render_last_xtdcomments 5 for forum.topic %}
+
+ {% if user.is_authenticated %}
+     {% render_comment_form for object %}
+ 
+
+ <div class='row' style="background-color: #ddd; color:blue; padding:5px 10px 5px 5px">
+
+  <H4 class="center">Comments</H4>
+
+    <form id="commentsForm" class='form-horizontal'action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+	
+    {{ form.comment }}
+    {{ form.honeypot }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    {{form.reply_to}}
+    <input type="hidden" name="next" value="{{next}}" />
+    <input type="submit" value="Add comment" id="id_submit" class="btn btn-primary btn-lg" />
+    </form>
+	</div>
+{% else %}
+    <p>Please <a href="">log in</a> to leave a comment.</p>
+  
+
+  {% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+                                                       
+ $(document).ready(function() {
+
+
+}) // End document ready
+</script>
+{% endblock %}

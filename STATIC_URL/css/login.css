@@ -30,6 +30,21 @@ margin-top:10px;
 font-weight:700;
 
 }
+.reg-background{
+background-image: url("/static/images/longin_background.JPG");
+background-size: 100% 100%;
+background-repeat: no-repeat;	
+	
+}
+.reg-block {
+width: 380px;
+padding: 20px;
+margin: 10px auto;
+background: #fff;
+border-top: solid 6px #4b4dc6;
+border-left: solid 6px #4b4dc6;
+border-right: solid 6px #4b4dc6; 
+}
 
 /* Login Button Text 
 #profileButton span,
@@ -72,7 +87,10 @@ font-weight:700;
     background:#d2e0ea;
     bottom:-1px;
 }
+.login-form{
+ margin:10px;
 
+}
 /* Login Form 
 #loginForm {
     width:250px; 

@@ -1,0 +1,55 @@
+{% extends 'history/base.html' %}
+{% load staticfiles %}
+{% load static %}
+  {% block title %}
+   Cameroon Protestant College Bali|List of Principals 
+{% endblock %}
+
+ {% block content %} 
+   {% for obj in object_list %}
+     <div class="row">
+        <div class="col-md-4 margin-bottom-30">
+          {% if obj.image %}
+             <img src={{obj.image.url}} style="padding:30px" class="img-thumbnail img-responsive" width="1000" alt="Sample Image">
+          {% else %}
+     		 <img src="{% static "images/logo3.png"%}" class="img-circle" width="80"/>
+          {% endif %} 
+        </div>
+        <div class="col-md-4 margin-bottom-30"> 
+           <legend> {{obj}}</legend> 
+             {{obj}}
+       </div> 
+     </div>
+{% endfor %}
+ {% if is_paginated %}
+        <ul class="pagination pagination-centered">
+            {% if object_list.has_previous %}
+                <li><a href="?page=1"></a></li>
+                <li><a href="?page={{ object_list.previous_page_number }}"></a></li>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                <li {% if object_list.number == i %} class="active" {% endif %}><a href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+
+            {% if object_list.has_next %}
+                <li><a href="?page={{ object_list.next_page_number }}">></a></li>
+                E<li><a href="?page={{ object_list.paginator.num_pages }}">>></a></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+ {% endblock %}
+
+
+ {% block right_bar %} 
+ <fieldset>
+ <legend> List of principals</legend> 
+<ul class="margin-bottom-40" id="sidebar-nav-1">
+   {% for obj in object_list %}
+         <li class="active"><a href="{{obj.get_absolute_url}}">{{obj}}</a></li>
+  {% endfor %}   
+</ul> 
+</fieldset>
+
+  {% endblock  %}   
+

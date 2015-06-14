@@ -1,0 +1,10 @@
+
+You have requested to collect static files at the destination
+location as specified in your settings:
+
+    /home/ewianda/Project/NoSQL_Django/cpcbali/STATIC_URL
+
+This will overwrite existing files!
+Are you sure you want to do this?
+
+Type 'yes' to continue, or 'no' to cancel: 

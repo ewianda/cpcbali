@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+ {% block title %}
+   {{ object.name }}                            
+
+
+                {% endblock %}
+
+{% block main %}
+<h1>{{ object.name }}</h1>
+<p>{{ object.location }}</p>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+                                                       
+ $(document).ready(function() {
+
+
+}) // End document ready
+</script>
+{% endblock %}

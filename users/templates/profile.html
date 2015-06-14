@@ -1,78 +1,102 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block title %}Account Profile{% endblock %}
 
 {% block main %}
-<h1>Welcome {{user.get_full_name}}</h1>
-<div class='row'>
-<div class='col-md-6'>
-
-<legend>Your profile</legend>
-                {% crispy form  %}
-
- 
-</div> <!-- End of col-6  -->
-<div class='col-md-6'>
-<div class='col-md-12'>
-<legend>Your registrations</legend>
-
-{% for event in  registered_list %}
-<ul>
-    <li>{{event.event.name}}
-           <form class="registration"  action="." method="post">
-            {% csrf_token %}
-            <input type="hidden" name="event_id" value="{{event.event.pk}}">
-            <input type="submit" value="Cancel registration" class="submit" />
-        </form>
-        </li>
-</ul> 
-
-    {% empty %}
-    No event in this category
-
-    {% endfor %}
-</div> <!-- End of col-12  -->
-<div class='col-md-12'>
-<legend>Upcoming events</legend>
-
-{% for event in  not_registered_list %}
-<ul>
-    <li>{{event.name}}</li>
-           <form class="registration"  action="." method="post">
-            {% csrf_token %}
-            <input type="hidden" name="event_id" value="{{event.pk}}">
-            <input type="submit" value="Register for this event" class="submit" />
-        </form>
-    </span>
-</ul>
-
-
-    {% empty %}
-    No event in this category
-
-    {% endfor %}
-
-</div> <!-- End of col-12  -->
-
-</div> <!-- End of col-6  -->
-
-
-
-</div> <!-- End of row-->
-
-
-
+<!--=== Profile ===-->
+<div class="profile">	
+    <div class="container content">
+        <div class="row">
+            <!--Left Sidebar-->
+            <div class="col-md-3 md-margin-bottom-40">
+                             {% if user.picture %}
+         <img class="profile-img img-thumbnail margin-bottom-20" src={{user.picture.url_200x200}}  width="200" alt="Sample Image">
+          {% else %}
+           <img  class="profile-img img-thumbnail margin-bottom-20"src="{% static "images/logo3.png"%}" class="img-circle" width="200"/>
+           {% endif %} 
+           
+              
+                <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
+                    <li class="list-group-item">
+                    <a href="{% url 'profile' %}"><i class="fa fa-bar-chart-o"></i>General</a>
+                    </li>
+                    <li class="list-group-item ">
+                    <a href="{% url 'social-links' %}"><i class="fa fa-user"></i> Social links</a>
+                    </li>
+                     <li class="list-group-item">
+                    <a href="{% url 'add-memoire' %}"><i class="fa fa-comments"></i>Memoire</a>
+                    </li>    
+                    <li class="list-group-item">
+                    <a href="{% url 'picture' %}"><i class="fa fa-group"></i> Change Picture</a>
+                    </li>                                        
+                    <li class="list-group-item">
+                    <a href="{% url 'auth_password_change' %}"><i class="fa fa-cubes"></i> Password Change</a>
+                    </li>
+                    <li class="list-group-item">
+                    <a href="{% url 'mailing-list' %}"><i class="fa fa-comments"></i>Mailing List</a>
+                    </li>                                        
+                </ul>   
+            </div>	
+            <div class="col-md-9">
+                <!--Profile Body-->
+                <div class="profile-body">
+                    {% block content %} Account Profile {% endblock %}
+                </div>
+                <!--End Profile Body-->
+            </div>
+        </div><!--/end row-->
+    </div><!--/container-->    
+</div>		
+<!--=== End Profile ===-->       
 
 {% endblock %}
 
 {% block javascript %}
 <script type="text/javascript">
-jQuery(document).ready(function() {
+    jQuery(document).ready(function() {
+
+
+                           // In line editting
+                           $.fn.editable.defaults.mode = 'inline';
+                           $('.myeditable').editable({
+placement: 'right',
+url:'/profile/', 
+validate: function(v) {
+if(!v) return 'Required field!';
+},
+
+});// End editable
+
+$('.fa-pencil').click(function(e){    
+                        e.stopPropagation();
+                        //$(this).closest($('.myeditable').editable('toggle'));
+                        $var = $(this).closest('td').prev().find('.editable')
+                        $var.editable('toggle')
+                        
+                        $('.fa-pencil').hide();
+                        });
+// Show the pencil on click
+$(document).on('click', '.editable-cancel, .editable-submit', 'body', function(){
+               $('.fa-pencil').show();
+               }) 
+
+
+
+
+
+
+
+
+
+
+
 $('.registration').on('submit',function(e){
-e.preventDefault()
-var url = $(this).attr('action')
-$.ajax({
+                      e.preventDefault()
+                      var url = $(this).attr('action')
+                      $.ajax({
 type: "POST",
 url: url,
 data: $(this).serialize(), // serializes the form's elements.
@@ -82,7 +106,7 @@ success: function(data)
 
 }
 }); /// end ajax call
-}); // end form submission
- }); // End of doccument ready
-                       </script>
-                       {% endblock %}
+                      }); // end form submission
+}); // End of doccument ready
+</script>
+{% endblock %}

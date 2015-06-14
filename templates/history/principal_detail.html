@@ -1,0 +1,37 @@
+{% extends 'history/base.html' %}
+{% load staticfiles %}
+{% load static %}
+  {% block title %}
+     Cameroon Protestant College Bali|{{ object.name}}
+{% endblock %}
+       {% block content %} 
+           <div class="row">
+        <div class="col-md-4 margin-bottom-30">
+          {% if object.image %}
+             <img src={{object.image.url}} style="padding:30px" class="img-thumbnail img-responsive" width="1000" alt="Sample Image">
+          {% else %}
+     		 <img src="{% static "images/logo3.png"%}" class="img-circle" width="80"/>
+          {% endif %} 
+        </div>
+        <div class="col-md-8 margin-bottom-30"> 
+           <legend> Biography  </legend> 
+            <h4> {{object}}   {{object.from_date|date:"o"}} - {{object.to_date|date:"o"}}</h4>
+            
+       </div> 
+     </div>             
+        {% endblock  %}   
+
+
+{% block right_bar %} 
+ <fieldset>
+ <legend> List of principals</legend> 
+<ul class="margin-bottom-40" id="sidebar-nav-1">
+   {% for obj in object_list %}
+         <li class="active"><a href="{{obj.get_absolute_url}}">{{obj}}</a></li>
+  {% endfor %}   
+</ul> 
+</fieldset>
+
+  {% endblock  %}   
+
+

@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load dialogos_tags %}
+  {% block css %}
+         <link rel="stylesheet" href="{% static "css/anthem/style.css" %}" type="text/css" media="screen" />
+        
+    <style type="text/css">
+ .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+}
+.video-container iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+        </style>
+        {% endblock %}
+  {% block title %}
+                               
+{{ object.title}} 
+ {% endblock %}
+
+
+
+
+{% block main %}
+ <div class = 'row'> 
+ 
+<legend> <strong> {{object.title}}</strong> </legend>
+{% if object.slug == "cpc-anthem" %}
+<div class = "video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2C3eB_EmVSg" frameborder="0" allowfullscreen></iframe>
+</div>
+{% else %}
+<div  class = "anthem-box">
+        <div class="row" >
+<div class="col-sm-6" >
+            <p><b> 1.)</b> Courage, brother, do not stumble,<br>
+            Though thy path be dark as night;<br>
+            There’s a star to guide the humble:<br>
+            Trust in God and do the right.
+            </p>
+            <p><b> 2.) </b>
+            Let the road be rough and dreary,<br>
+            And its end far out of sight,<br>
+            Foot it bravely; strong or weary,<br>
+            Trust in God, trust in God, do the right.
+            </p>
+            <p><b> 3.)</b>
+            Perish policy and cunning,<br>
+            Perish all that fears the light!<br>
+            Whether losing, whether winning,<br>
+            Trust in God and do the right.
+            </p>
+			</div>
+	<div class="col-sm-6" >
+            <p><b>  4.)</b>
+            Some will hate thee, some will love thee,<br>
+            Some will flatter, some will slight;<br>
+            Cease from man, and look above thee:<br>
+            Trust in God and do the right.
+            </p>
+            <p><b>  5.)</b> 
+            Simple rule, and safest guiding,<br>
+            Inward peace and inward might,<br>
+            Star upon our path abiding,<br>
+            Trust in God and do the right.
+            </p>
+</div>
+        </div>
+ <audio controls class="col-sm-12">   
+        <source src="{%static "/static/audio/courage_brother.mp3"%}" type="audio/mp3">
+        </audio>
+    </fieldset>
+</div>
+  </div>
+{% endif %}
+<br /><br /><br />
+{% if user.is_authenticated %}
+{% comment_form object as comment_form %}
+  <form id="commentsFrm" class='form-horizontal'action="{% comment_target object %}" method="POST">
+    {% csrf_token %}
+{{comment_form}}
+
+ <input type="submit" value="Add comment" id="id_submi" class="btn btn-primary btn-lg" />
+ </form>
+{% else %}
+    <p>Please <a href="">log in</a> to leave a comment.</p>
+  
+
+  {% endif %}  
+
+<div class='row'  id="newcomment"></div>
+ </div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+                                                       
+ $(document).ready(function() {
+
+$("#commentsForm").submit(function(e) {
+    e.preventDefault;
+    var url = $(this).attr('action'); // the script where you handle the form input.
+	var data=$(this).serialize()
+     console.log(data)
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: data, // serializes the form's elements.
+           success: function(data)
+           {
+		   $.get( "/batch", function( data ) { 
+  $("#comments").html($('#comments',data).html());
+});
+              // alert(data); // show response from the php script.
+			   
+           }
+         });
+    return false; // avoid to execute the actual submit of the form.
+});
+
+}) // End document ready
+</script>
+{% endblock %}

@@ -7,13 +7,16 @@ from users.models import Boban,Batch
 from django.core.urlresolvers import reverse
 from django.views.generic.list import ListView
 from django.utils import timezone
-
-from home.models import History
-
-class HistoryListView(ListView):
-      model = History
+from django.views.generic.detail import DetailView
 
 
+from home.models import Achievement
+
+
+class AchievementListView(ListView):
+      model = Achievement
+      
+      
 def home(request):   
    user = get_user_model()
    myuser = user.objects.filter(is_active=True)
@@ -37,20 +40,16 @@ def contact_form(request):
    return render(request,"home/contact.html", {"form": form,})
 
 
-def batch_view(request):
-   batch=Batch.objects.get(pk=1)
-   if request.method == 'GET':
-       class_of = request.GET.get('class_of', 2003)
+def batch_view(request,class_of):     
        user = get_user_model()
-       print class_of
-       if class_of:
-           profile = user.objects.filter(end_date__contains=str(class_of))
-           for p in profile:
-               print p.nickname
-           return render(request,"home/class_off.html", {"profile":profile,"batch":batch,'next': reverse('comments-xtd-sent')})
-       else:
-           return render(request,"home/class_off.html", {"batch":batch,'next': reverse('comments-xtd-sent')})
-   else:
-       return render(request,"home/class_off.html", {"batch":batch,'next': reverse('comments-xtd-sent')})
-
+       try:       
+         profile = user.objects.all().filter(end_date=str(class_of))
+       except user.DoesNotExist:
+           profile = None
+       try:             
+          batch = Batch.objects.get(end_date=str(class_of))
+       except Batch.DoesNotExist:
+            batch=None          
+       return render(request,"home/class_off.html", {"profile":profile,"batch":batch,})
+       
 

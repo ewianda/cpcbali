@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load dictionary_tag %}
+  {% block title %}
+                               
+Bali Dictionary
+{% endblock %}
+
+
+{% block main %}
+<link href="{%static "css/dictionary/style.css"%}" rel="stylesheet" >
+
+<div class="row">
+
+
+{% column_tag object_list  %}
+
+
+
+{% if is_paginated %}
+        <ul class="pagination pagination-centered">
+            {% if object_list.has_previous %}
+                <li><a href="?page=1"></a></li>
+                <li><a href="?page={{ object_list.previous_page_number }}"></a></li>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                <li {% if object_list.number == i %} class="active" {% endif %}><a href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+
+            {% if object_list.has_next %}
+                <li><a href="?page={{ object_list.next_page_number }}">></a></li>
+                E<li><a href="?page={{ object_list.paginator.num_pages }}">>></a></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+   </div>    
+   
+      <p><a class="btn btn-primary" href="{% url 'add-word' %}">Add a new word</a></p>
+{% endblock %}
+
+
+
+
+
+{% block javascript %}
+
+<script type="text/javascript">
+                                                       
+ $(document).ready(function() {
+
+
+}) // End document ready
+</script>
+{% endblock %}

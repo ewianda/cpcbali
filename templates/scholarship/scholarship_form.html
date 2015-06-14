@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+  {% block title %}
+                              Scholarship Form 
+
+                {% endblock %}
+
+
+
+{% block main %}
+
+    
+
+
+<h1>Create Chapter</h1>
+<div class="col-md-8 col-md-offset-1">
+<form class="form-horizontal" method="post" >
+  {% csrf_token %}
+  <legend>Chapter Details</legend>
+
+  {% crispy  form %} 
+</form>
+
+
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+  {{form.media}}
+{% endblock %}

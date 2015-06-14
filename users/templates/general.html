@@ -1,0 +1,49 @@
+{% extends 'profile.html' %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load user_tags %}
+{% load form_utils %}
+{% block content %}
+
+<table id="user" class="table table-bordered table-striped">
+    <tbody> 
+ <tr> <td style="width: 100px"> Email:</td>  <td> {{ user.email}}   </td>  <tr> 
+
+
+
+
+
+        {% for field in form %}
+        <tr> 
+{% if field|is_select %}
+    <td style="with: 100px">     {{ field.errors }}
+        {{ field.label_tag }}</td>
+    <td> <a href="#" class="myeditable" data-pk={{user.pk}} data-value="{{field.value}}"  data-type="select" data-name="{{field.name}}" data-source ='{{field|select_options}}'>{{ field|value_text}}  </a> </td><td><i class="fa fa-pencil pencil-input-change"></i> </td>
+
+{% elif field|is_checkbox %}
+ <td style="wdth: 100px">     {{ field.errors }}
+        {{ field.label_tag }}</td>
+    <td> <a href="#" class="myeditable" data-pk={{user.pk}}  data-type="select" data-value="{{field.value}}"  data-name="{{field.name}}" data-source ='[{value:"True","text":"Yes"},{value:"False","text":"No"}]'>{{ field}}  </a></td><td><i class="fa fa-pencil pencil-input-change"></i> </td>
+
+
+{% else %}
+ <td style="with: 100px">     {{ field.errors }}
+        {{ field.label_tag }}</td>
+ <td> <a href="#" class="myeditable" data-pk={{user.pk}}  data-type="text"  data-value="{{field.value}}"   data-name="{{field.name}}"> {{ field}}  </a></td><td><i class="fa fa-pencil pencil-input-change"></i> </td>
+
+
+{% endif %}
+
+ </tr> 
+
+        {% endfor %}
+
+</tbody>
+</table>
+{% endblock %}
+
+
+
+
+

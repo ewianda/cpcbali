@@ -1,0 +1,15 @@
+{% extends 'history/base.html' %}
+{% load staticfiles %}
+{% load static %}
+  {% block title %}
+     Cameroon Protestant College Bali|{{ object.name}}
+{% endblock %}
+       {% block content %} 
+               <div>                      
+                 {{ object.history|safe }}
+                    </div>               
+        {% endblock  %}   
+
+
+
+

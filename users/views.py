@@ -2,27 +2,63 @@ from django.conf import settings
 from django.contrib.sites.models import RequestSite
 from django.contrib.sites.models import Site
 from django.shortcuts import redirect,render
-
+from django.contrib.auth import get_user_model
 
 
 from django.views.generic import UpdateView
 from django.core.urlresolvers import reverse
-
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 
 from registration import signals
 from registration.models import RegistrationProfile
 from registration.backends.default.views import RegistrationView
-from users.forms import UserCreationForm,SocialExtraDataForm,UserProfileForm
+from users.forms import UserCreationForm,SocialExtraDataForm,UserProfileForm,GeneralForm
 from users.models import Boban
-
+from django.views.generic import TemplateView
 from cpcbali.decorators import render_to
 
 
 from social.backends.google import GooglePlusAuth
 from social.backends.utils import load_backends
+from django.http import HttpResponse
+import logging
 
 
+@csrf_exempt
+@login_required
+def update_profile(request):  
+    message = ""  
+    if request.is_ajax():        
+        name = request.POST.get("name",None)
+        value = request.POST.get("value",None) 
+        check = (hasattr(request.user, name) and (value != None))
+        logging.error(value)
+        logging.error(name)
+        if  hasattr(request.user, name) and value:             
+            usermodel =     get_user_model()
+            user = usermodel.objects.get(pk = request.user.pk)            
+            setattr(user,name,value)            
+            user.save()            
+            message = "success"    
+    else:
+        message = ""
+        
+    return HttpResponse(message)
+
+
+
+
+class GeneralView(TemplateView):
+       def get_context_data(self, **kwargs):
+           context = super(GeneralView, self).get_context_data(**kwargs)       
+           context['form'] =  GeneralForm(instance = self.request.user)
+           return context
+       @method_decorator(login_required)
+       def dispatch(self, *args, **kwargs):
+           return super(GeneralView, self).dispatch(*args, **kwargs)
 
 class UserUpdateView(UpdateView):
     """
@@ -89,7 +125,7 @@ class BobanRegistrationView(RegistrationView):
         # example username and id fields. It's also possible to disable update
         # on fields defined in SOCIAL_AUTH_PROTECTED_FIELDS.
         for name, value in cleaned_data.items():
-            print value
+            
             if not hasattr(new_user, name):
                 continue
             current_value = getattr(new_user, name, None)

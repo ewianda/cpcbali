@@ -18,30 +18,38 @@ class UserCreationForm(forms.ModelForm):
         self.helper.label_class = 'col-md-4'
         self.helper.field_class = 'col-md-5'
         self.helper.form_tag = False
-        self.helper.layout = Layout( Fieldset('Registration Information', # Legend
+        self.helper.layout = Layout( Fieldset('General Information', # Legend
                       'email',
                       'password1',
                       'password2',),)
         self.helper.layout.append(
         Fieldset('Personal Information', # Legend
                       'first_name',
-                      'last_name',
-                       Div('gender', css_class="col-md-6 col-md-offset-2",placeholder='Gender') ),
+                      'last_name','country','city',
+                       Div('gender', css_class="col-md-6 col-md-offset-2",placeholder='Gender'),)
+                      
         )
         self.helper.layout.append(
-        Fieldset('University Affiliation', # Legend
+        Fieldset('CPC Information', # Legend
                      Div( 'house','room', css_class="col-md-6 col-md-offset-",placeholder='Gender'),
-                      Div('country', 'city', css_class="col-md-6 col-md-offset-",placeholder='Gender'),
+                     
                        Div('years','nickname', 'notification', css_class="col-md-6 col-md-offset-",placeholder='Gender'),
 
                       ),
         )
         self.helper.layout.append(
-        Fieldset('Memoir', # Legend
-                     Div( 'memoire',css_class="col-md-6 col-md-offset-",placeholder='Gender'),
+        Fieldset('Memoire', # Legend
+                     Div( 'memoire',css_class="col-md-6 col-md-offset-",),
                       ),
         )
-
+        self.helper.layout.append(
+        Fieldset('Social Links', # Legend
+                     Div( 'facebook',),
+                     Div( 'linkedin',),
+                     Div( 'google_plus',),
+                     Div( 'twitter',),
+                      ),
+        )
 
         self.helper.layout.append(ButtonHolder(
                 Submit('submit', 'Submit', css_class='button white')
@@ -93,6 +101,11 @@ class SocialExtraDataForm(forms.ModelForm):
                model = Boban
                exclude = ('is_staff', 'service','date_joined','is_admin','is_active',
                       'password','last_login','groups','is_superuser','user_permissions','first_name','last_name','email')
+
+class GeneralForm(forms.ModelForm):   
+    class Meta:
+               model = Boban
+               fields = ['years', 'nickname','house','room','room','country','city','gender']
 
 
 class UserProfileForm(forms.ModelForm):

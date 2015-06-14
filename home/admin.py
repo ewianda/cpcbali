@@ -1,8 +1,8 @@
 from django.contrib import admin
-from home.models import  History
+from home.models import  Achievement
 # Register your models here.
 
-admin.site.register(History)
 
+admin.site.register(Achievement)
 
 

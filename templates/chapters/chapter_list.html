@@ -1,0 +1,53 @@
+{% extends "chapters/base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+  {% block title %}
+                               
+Bali Old Boys Association Chapters
+{% endblock %}
+
+{% block content %}
+
+ <div class = 'row'> 
+ 
+<legend> <strong> {{national_chapter.name}}</strong> </legend>
+{% if national_chapter.cover %}
+  <img src={{national_chapter.cover.url}} class="img-responsive" width="1000" alt="Sample Image">
+          {% else %}
+           <img src="{% static "images/logo3.png"%}" class="img-circle" width="80"/>
+           {% endif %} 
+  <h3> Events </h3>  
+  <h3> Social Links </h3>  
+  {% if national_chapter.facebook %}
+  <a href="{{national_chapter.facebook}}" class="btn btn-social btn-facebook"><i class="fa fa-facebook"></i>&nbsp;</a> 
+  {% endif %} 
+  {% if national_chapter.twitter %}
+  <a href="{{national_chapter.twitter}}" class="btn btn-social btn-twitter"><i class="fa fa-twitter"></i>&nbsp;</a>
+  {% endif %} 
+  {% if national_chapter.google_plus %}
+  <a href="{{national_chapter.google_plus}}" class="btn btn-social btn-google-plus"><i class="fa fa-google-plus"></i>&nbsp;</a>    
+  {% endif %}      
+  <h3> Membmers </h3>         
+{% for user in users %}
+{{user}}
+{% endfor %}
+
+</div>
+
+
+{% endblock %}
+
+{% block side_bar %} 
+<legend> Chapters </legend>
+{% for chapters in object_list %}
+<a  href="{{ chapters.get_absolute_url }}">{{chapters}}</a> 
+
+
+ {% empty %}
+ No chapters
+ {% endfor %}
+ <br> <br> <br>
+<a class = "btn btn-primary" href="{% url 'create-chapter' %}"> Start a new chapter</a> 
+
+{% endblock %}
