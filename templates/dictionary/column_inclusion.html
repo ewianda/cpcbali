@@ -1,0 +1,27 @@
+{% if words.definition %}
+<div class="blog-post-tags">
+  <ul class="list-unstyled list-inline blog-info">
+     <li><h4 id = "{{words.word|slugify }}" > <strong> {{ words.word |title}}</strong> </h4> </li>     
+      <li><i class="fa fa-user"></i> by  {% firstof words.user.nickname words.user.get_full_name "anonymous" %}</li>
+      <li><i class="fa fa-pencil"></i> <a href="{{words.get_absolute_url}}">Edit </a></li>
+   </ul>
+  <p align="justify"> {{ words.definition }} </p> 
+  <!--i class="fa fa-thumbs-up"></i>{{ words.definition.up_vote }}<i class="fa fa-thumbs-down">{{ words.definition.down_vote }}</i-->
+ <a data-toggle="collapse" href="#{{words.word|slugify }}collapse" aria-expanded="false" aria-controls="collapseExample">
+  editors
+</a>
+  <div class="collapse" id="{{words.word|slugify }}collapse">
+  <div class="well">
+  <ul>
+    {% for auth in words.authors %}
+     <li>{{auth}}</li>
+    {% endfor %} 
+    </ul>
+  </div>
+</div>
+</div>
+ {% endif %}
+ 
+
+
+

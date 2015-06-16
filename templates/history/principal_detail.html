@@ -14,8 +14,10 @@
           {% endif %} 
         </div>
         <div class="col-md-8 margin-bottom-30"> 
-           <legend> Biography  </legend> 
-            <h4> {{object}}   {{object.from_date|date:"o"}} - {{object.to_date|date:"o"}}</h4>
+          <legend> {{object}}  ({{object.from_date|date:"o"}} - {{object.to_date|date:"o"}} ) <sub><a href="{{object.get_update_url}}"><font size="1"> [Add/Edtit biography]</font></a></sub> </legend> 
+            {% if obj.biography %}
+             {{object.biography|safe}}
+             {% endif %}
             
        </div> 
      </div>             

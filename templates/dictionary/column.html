@@ -1,10 +1,14 @@
-<div>
+<div class = 'col-sm-6'>
 {% for words  in col_one %}
-    <li> {{ words.name }} </li>
+{% include 'dictionary/column_inclusion.html' with words=words %}
 {% endfor %}
 </div>
-<div>
-{% for words  in col_two %}
-    <li> {{ words.name }} </li>
+
+
+<div class = 'col-sm-6'>
+ {% for words  in col_two %}    
+  {% include 'dictionary/column_inclusion.html' with words=words %}
 {% endfor %}
 </div>
+
+

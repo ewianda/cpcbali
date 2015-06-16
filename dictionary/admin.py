@@ -1,9 +1,15 @@
 from django.contrib import admin
-from dictionary.models import Word
+from dictionary.models import Word,Definition
 
 # Register your models here.
-
-
+class  DefinitionInline(admin.TabularInline):
+      model = Definition 
 class WordAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(Word)
+    inlines = [
+               DefinitionInline
+    ]
+
+
+
+
+admin.site.register(Word,WordAdmin)

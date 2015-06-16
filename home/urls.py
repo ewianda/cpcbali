@@ -7,7 +7,7 @@ urlpatterns = patterns('',
 url(r'^$', views.home,name="home"),
 url(r'^robots\.txt$' , TemplateView.as_view(template_name="robot.html", content_type='text/plain')),
 url(r'^anthems/$', TemplateView.as_view(template_name="home/anthem.html"),name="anthem"),
-
+url(r'^thank-you-for-your-contributions/$', TemplateView.as_view(template_name="home/thank_you.html"),name="thanks"),
 
 #url(r'^scholarships$', TemplateView.as_view(template_name="home/scholarship.html"),name="scholarship"),
 url(r'^boban-world-wide/$', TemplateView.as_view(template_name="home/boban_world_wide.html"),name="boban-world-wide"),

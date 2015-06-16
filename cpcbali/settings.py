@@ -13,7 +13,11 @@ PROJECT_PATH = os.path.abspath(PROJECT_PATH)
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
-
+DBINDEXER_BACKENDS = (
+    'dbindexer.backends.BaseResolver',
+    'dbindexer.backends.FKNullFix',
+    'dbindexer.backends.InMemoryJOINResolver',
+)
 MANAGERS = ADMINS
 
 # Activate django-dbindexer for the default database

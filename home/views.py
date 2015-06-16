@@ -11,8 +11,6 @@ from django.views.generic.detail import DetailView
 
 
 from home.models import Achievement
-
-
 class AchievementListView(ListView):
       model = Achievement
       

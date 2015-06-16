@@ -4,14 +4,36 @@
 {% load crispy_forms_tags %}
 
   {% block title %}
-                               
+{% if word %}
+Edit {{word}} definition
+{% else %}                             
 Add new word to dictionary
+{% endif %}
+
 {% endblock %}
 
 
 {% block main %}
-{% crispy form %}
+<div class="alert alert-danger" role="alert">Dear Bob. To get credit for your definition,
+please <a href="{% url 'registration_register' %}">create an account</a>. If you add/edit a word without an account, it will appear as anonymous 
+New words are reviewed before they can be added to the dictionary. <b>Thanks for your contribution</b></div>
 
+
+{% if word %}
+<div class="row">
+<legend> {{word}}</legend>
+
+
+<ul class="list-group" >
+<li class="list-group-item list-group-item-success" > Add alternate meaning</li>
+<li class="list-group-item list-group-item-success"  >Historical account of usage</li>
+</ul>
+</div>
+{% endif %}
+
+<div class="row">
+{% crispy form %}
+</div>
       
 {% endblock %}
 
