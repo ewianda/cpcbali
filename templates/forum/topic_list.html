@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+  {% block title %}
+                               
+Scholarship
+
+                {% endblock %}
+{% block main %}
+ <div class = 'row'> 
+<div class='col-md-9'>
+{% for obj in object_list %}
+<div class="blog-post-tags">
+  <ul class="list-unstyled list-inline blog-info">
+     <li><h4>  {{obj.name |title}} </h4> </li>     
+      <li><i class="fa fa-usr"></i>by {% firstof obj.user.nickname obj.user.get_full_name %}</li>
+       <li><i class="fa fa-penci"></i>Deadline {{ obj.deadline|safe }}</li>
+   </ul>
+  <p align="justify"> {{ obj.requirement|safe }} </p> 
+ </div> 
+ {% empty %}
+ No scholarship information
+ {% endfor %}
+  </div>
+ 
+ <div class='col-md-3'>
+<a class = "btn btn-primary" href="{% url 'scholarship-create' %}"> Start a new scholarship</a> 
+ </div>
+ {% if is_paginated %}
+        <ul class="pagination pagination-centered">
+            {% if object_list.has_previous %}
+                <li><a href="?page=1"></a></li>
+                <li><a href="?page={{ object_list.previous_page_number }}"></a></li>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                <li {% if object_list.number == i %} class="active" {% endif %}><a href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+
+            {% if object_list.has_next %}
+                <li><a href="?page={{ object_list.next_page_number }}">></a></li>
+                E<li><a href="?page={{ object_list.paginator.num_pages }}">>></a></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+   </div>    
+ 
+{% endblock %}
+
+
+
+
+

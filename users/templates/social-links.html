@@ -1,0 +1,35 @@
+{% extends 'profile.html' %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<table id="user" class="table table-bordered table-striped">
+
+    <tbody> 
+ <tr>
+   <td style="with: 100px"> <a class="btn btn-social btn-facebook"><i class="fa fa-facebook"></i>&nbsp;</a></td>
+  <td><a href="#" class="myeditable" data-pk={{user.pk}}  data-type="url"   
+            data-placeholder="https://www.facebook.com/profile.php?id=501348704"
+             data-emptytext="https://www.facebook.com/profile.php?id=501348704"   data-name="facebook"> {% firstof "" user.facebook %}  </a></td><td><i class="fa fa-pencil pencil-input-change"></i> </td>
+</tr>
+
+<tr>
+   <td style="with: 100px"> <a class="btn btn-social btn-linkedin"><i class="fa fa-linkedin"></i>&nbsp;</a></td>
+  <td><a href="#" class="myeditable" data-pk={{user.pk}}  data-type="url"  data-placeholder="https://www.linkedin.com/profile/view?id=146714511"
+             data-emptytext="https://www.linkedin.com/profile/view?id=146714511"   data-name="linkedin"> {% firstof "" user.linkedin %}  </a></td><td><i class="fa fa-pencil pencil-input-change"></i> </td>
+</tr>
+<tr>
+   <td style="with: 100px"> <a class="btn btn-social btn-google-plus"><i class="fa fa-google-plus"></i>&nbsp;</a></td>
+  <td><a href="#" class="myeditable" data-pk={{user.pk}}  data-type="url"  data-placeholder="https://plus.google.com/107176605982323643354/posts"
+             data-emptytext="https://plus.google.com/107176605982323643354/posts"   data-name="google_plus"> {% firstof "" user.google_plus %}  </a></td><td><i class="fa fa-pencil pencil-input-change"></i> </td>
+</tr>
+<tr>
+   <td style="with: 100px"> <a class="btn btn-social btn-twitter"><i class="fa fa-twitter"></i>&nbsp;</a></td>
+  <td><a href="#" class="myeditable" data-pk={{user.pk}}  data-type="url" data-placeholder="https://twitter.com/WiandaElvis"
+             data-emptytext="https://twitter.com/WiandaElvis"    data-name="twitter"> {% firstof "" user.twitter %}  </a></td><td><i class="fa fa-pencil pencil-input-change"></i> </td>
+</tr>
+ 
+</tbody>
+</table>
+{% endblock %}
+

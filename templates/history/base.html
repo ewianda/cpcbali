@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+  {% block title %}
+                              History 
+{% endblock %}
+{% block main %}
+<link href="{%static "css/history/style.css"%}" rel="stylesheet" >
+<!--=== Profile ===-->
+<div class="profile">   
+    <div class="container content">
+        <div class="row">
+            <!--Left Sidebar-->                   
+            <div class="col-md-3 md-margin-bottom-40">
+                <img class="img-responsive profile-img margin-bottom-20" src="{% static "history/oneil.jpg" %}" alt="">
+
+                <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
+                    {% for history in history_list %}
+                    <li class="active list-group-item">
+                    <a href="{% url  'history' slug=history.slug %}">{{ history.name}}</a>
+                    </li>
+                    {% empty %}
+                    No articles yet
+                    {% endfor %}
+
+                    <li class="list-group-item active">
+                    <a href="{% url 'principals' %}"> Principals</a>
+                    </li>
+
+                </ul>   
+            </div>
+            <!--End Left Sidebar-->
+               <div class="col-md-9">
+                <!--Profile Body-->
+   {% block content %}
+   {% endblock  %}
+   
+       </div>
+                <!--End Profile Body-->
+   
+  
+            </div>
+
+        </div><!--/end row-->
+    </div><!--/container-->    
+</div>      
+<!--=== End Profile ===-->
+{% endblock  %}

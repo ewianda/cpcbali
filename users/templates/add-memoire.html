@@ -1,0 +1,17 @@
+{% extends 'profile.html' %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<table id="user" class="table table-bordered table-striped">
+<legend>Memoire </legend>
+    <tbody> 
+ <tr> 
+  <td>    
+
+<a href="#" class="myeditable" data-pk={{user.pk}}  data-type="textarea"     data-name="memoire"> {{user.memoire}}  </a></td><td><i class="fa fa-pencil pencil-input-change"></i> </td>
+</tr> 
+</tbody>
+</table>
+{% endblock %}
+

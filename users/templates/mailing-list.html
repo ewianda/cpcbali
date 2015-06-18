@@ -1,0 +1,14 @@
+{% extends 'profile.html' %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<table id="user" class="table table-bordered table-striped">
+    <tbody> <tr><td>
+<a href="#" class="myeditable" data-pk={{user.pk}} data-value="{{user.notification}}"  data-type="select" data-name="notification" data-source ='[{value:"True","text":"Yes"},{value:"False","text":"No"}]'>{{user.mnotification}} </a> </td><td><i class="fa fa-pencil pencil-input-change"></i> </td>
+</tr>
+
+</tbody>
+</table>
+{% endblock %}
+
