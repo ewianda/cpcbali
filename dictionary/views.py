@@ -12,11 +12,11 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit,Div
 from home.context_processors import twitterAuthenticate
-
+from ckeditor.widgets import CKEditorWidget
 # Create your views here.
 
 class WordUpdateForm(ModelForm):
-    definition = forms.CharField(widget=forms.Textarea)
+    definition = forms.CharField(widget=CKEditorWidget())
     def __init__(self, *args, **kwargs):
         super(WordUpdateForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)

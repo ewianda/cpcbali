@@ -91,6 +91,11 @@ indexes:
   - name: __key__
     direction: desc
 
+- kind: facebook_access_facebookacesstoken
+  properties:
+  - name: __key__
+    direction: desc
+
 - kind: forums_forum
   properties:
   - name: __key__

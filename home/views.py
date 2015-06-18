@@ -51,3 +51,9 @@ def batch_view(request,class_of):
        return render(request,"home/class_off.html", {"profile":profile,"batch":batch,})
        
 
+
+
+    
+    
+    
+    

@@ -150,7 +150,7 @@ INSTALLED_APPS = (
     'crispy_forms', 'dictionary', 'captcha', 'scholarship',
      'registration',
       'ckeditor', 'home', 'chapters',
- "forum", 'django.contrib.humanize',
+ "forum", 'django.contrib.humanize','facebook_access',
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
 )
@@ -158,7 +158,7 @@ CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"
 # CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 CKEDITOR_CONFIGS = {
     'default': {
-
+ 'toolbar': 'Basic',
         'height': 300,
         'width': 500,
     },

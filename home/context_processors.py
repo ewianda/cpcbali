@@ -5,10 +5,11 @@ import twitter
 from anthem.models import Anthem
 from history.models import History
 from open_facebook import OpenFacebook,FacebookAuthorization
-
+from facebook_access.models import FaceBookAcessToken
 
 def FacebookAuthenticate():  
     FACEBOOK_ACCESS_TOKEN= FacebookAuthorization.get_app_access_token()
+    FACEBOOK_ACCESS_TOKEN=FaceBookAcessToken.objects.all()[0]
 
     return  OpenFacebook(FACEBOOK_ACCESS_TOKEN)
     
@@ -21,8 +22,7 @@ def latest_posts( request ):
     posts=[]
     try:
         facebook  = FacebookAuthenticate()
-        
-        feed=facebook.get(settings.FACEBOOK_GROUP_FEED)['data']
+        feed=facebook.get('me/feed')['data']        
     except:
         feed = None
         

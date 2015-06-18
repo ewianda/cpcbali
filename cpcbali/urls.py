@@ -6,6 +6,7 @@ from django.conf.urls import patterns, include, url
 
 from django.conf import settings
 urlpatterns = patterns('',
+    url('', include('facebook_access.urls')),                   
     url('', include('dictionary.urls')),
     url('', include('anthem.urls')),
     url('', include('memoire.urls')),

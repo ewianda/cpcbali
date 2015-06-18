@@ -38,10 +38,10 @@ class PrincipalUpdateView(UpdateView):
              bio.user = self.request.user           
         #self.object.save()
           bio.save()           
-          #send_mail( subject="New word added",
-                #message="%s:%s" % (self.object.name,bio),
-               # from_email=settings.EMAIL_HOST_USER,
-                # recipient_list=[settings.EMAIL_HOST_USER],)          
+          send_mail( subject="New word added",
+               message="%s:%s" % (self.object.name,bio),
+               from_email=settings.EMAIL_HOST_USER,
+               recipient_list=[settings.EMAIL_HOST_USER],)          
           return super(PrincipalUpdateView, self).form_valid(form) 
     
     
