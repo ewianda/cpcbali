@@ -1,32 +1,33 @@
-<div class='col-xs-12'>
+
 
 <div class = 'col-sm-6'>
 {% for words  in col_one %}
-<h4><strong> {{ words.word |title}}</strong> </h4>
+
 <div class="blog-post-tags">
   <ul class="list-unstyled list-inline blog-info">
-      <li><i class="fa fa-calendar"></i> February 02, 2013</li>
-      <li><i class="fa fa-pencil"></i> {% firstof words.user.nickname words.user.get_full_name %}</li>
-      <li><i class="fa fa-comments"></i> <a href="#">24 Comments</a></li>
+     <li><h4 id = "{{words.word|slugify }}"> <strong> {{ words.word |title}}</strong> </h4> </li>     
+      <li><i class="fa fa-user"></i> {% firstof words.user.nickname words.user.get_full_name %}</li>
+       <li><i class="fa fa-pencil"></i> Edit </li>
    </ul>
- </div>
-<p align="justify"> {{ words.definition }} </p>
-
+  <p align="justify"> {{ words.definition }} </p> 
+ </div> 
 {% endfor %}
 </div>
+
+
 <div class = 'col-sm-6'>
     {% for words  in col_two %}
-    <h4> <strong> {{ words.word|title }}</strong> </h4>
+   
 <div class="blog-post-tags">
   <ul class="list-unstyled list-inline blog-info">
-      <li><i class="fa fa-calendar"></i> February 02, 2013</li>
-      <li><i class="fa fa-pencil"></i> {% firstof words.user.nickname words.user.get_full_name %}</li>
-      <li><i class="fa fa-comments"></i> <a href="#">24 Comments</a></li>
+     <li><h4 id = "{{words.word|slugify }}" > <strong> {{ words.word |title}}</strong> </h4> </li>     
+      <li><i class="fa fa-user"></i> {% firstof words.user.nickname words.user.get_full_name %}</li>
+       <li><i class="fa fa-pencil"></i> Edit </li>
    </ul>
- </div>
-<p align="justify"> {{ words.definition }} </p>
+  <p align="justify"> {{ words.definition }} </p> 
+ </div> 
 
 {% endfor %}
 </div>
-</div>
+
 

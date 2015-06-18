@@ -1,5 +1,13 @@
 from django.contrib import admin
-from chapters.models import Chapter
+from chapters.models import Chapter,ChapterMember
 # Register your models here.
-
-admin.site.register(Chapter)
+class MemberInlineAdmin(admin.TabularInline):
+    model = ChapterMember
+    extra = 1
+class ChapterAdmin(admin.ModelAdmin):
+    inlines = [
+       MemberInlineAdmin
+    ]
+    prepopulated_fields = {"slug": ("name",)}
+    
+admin.site.register(Chapter,ChapterAdmin)

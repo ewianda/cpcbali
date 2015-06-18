@@ -2,68 +2,69 @@
 {% load future %}
 {% load staticfiles %}
 {% load static %}
-
 {% load i18n %}
 {% load url from future %}
 
 {% load crispy_forms_tags %}
 
 <!-- saved from url=(0023)http://www.utoronto.ca/ -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html lang="en" >
+<head>
+ <title>
+                {% block title %}
+                       
+
+                {% endblock %}
+                </title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta name="description" content="BOBA  Bali Old Boys Association">
+          <meta name="author" content="Elvis Wianda">
 
-
-        <title>Cameroon Protestant College Bali</title>
-        <link rel="shortcut icon" href="http://www.utoronto.ca/__shared/templates/images/U-of-T-favicon.png">
-        <!--link rel="stylesheet" type="text/css" media="screen" href="{%static "css/css_reset.css"%}"-->
-
+       
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="{%static "css/assets/css/bootstrap.css"%}" rel="stylesheet">
-        <link href="{%static "css/assets/css/font-awesome.css"%}" rel="stylesheet">
+        <link href="{%static "css/assets/css/bootstrap.min.css"%}" rel="stylesheet">
+        <link href="{%static "css/assets/css/font-awesome.min.css"%}" rel="stylesheet">
         <!--link href="{%static "css/assets/css/docs.css"%}" rel="stylesheet" -->
-        <link href="{%static "css/listnav.css"%}" rel="stylesheet" >
+   
         <link href="{%static "css/nivo-slider.css"%}" rel="stylesheet" >
         <link href="{%static "css/simplePagination.css"%}" rel="stylesheet" >
-         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="{% static "css/bootstrap-social.css" %}" type="text/css" media="screen" />
+  
 
-
-        <link rel="stylesheet" type="text/css" media="screen" href="{%static "css/style.css"%}">
- <link rel="stylesheet" type="text/css" media="screen" href="{%static "css/bootstrap-editable.css"%}">
- {% block css %}{% endblock %}
+         <link rel="stylesheet" type="text/css" media="screen" href="{%static "css/bootstrap-editable.css"%}">
+    
         <link rel="stylesheet" type="text/css" media="screen" href="{%static "css/login.css"%}">
-<link href="{%static "css/select2.css"%}" rel="stylesheet" >
-
-
-        <script src='{%static "js/jquery-2.1.0.min.js"%}'></script>
-	 <script src='{%static "js/bootstrap.min.js"%}'></script>
-	 <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<script src='{% static "js/select2.min.js"%}'></script>
-<script src='{% static "js/jquery.simplePagination.js"%}'></script>
-<script src='{% static "js/bootstrap-editable.min.js"%}'></script>
-<script src='{% static "js/jquery.columnizer.min.js"%}'></script>
-<script src='{%static "js/login.js"%}'></script>
-     <!--[if IE]> <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		<script src="http://code.jquery.com/jquery.js"></script>
+        <link href="{%static "css/select2.css"%}" rel="stylesheet" >
+        <link rel="stylesheet" type="text/css" media="screen" href="{%static "css/style.css"%}">
+          
+<link rel="stylesheet" type="text/css" media="screen" href="{%static "css/profile.css"%}">
+  {% block css %}{% endblock %}
+        
+        <!--[if IE]> <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="http://code.jquery.com/jquery.js"></script>
 
         <![endif]-->
-	<style type="text/css">
+        <style type="text/css">
             #mainnav li:hover ul, #mainnav li.sfhover ul {left: 0px; visibility:inherit;}
             #banner-ss {z-index:0 !important;}
         </style>
 
     </head>
     <body>
-	  <!-- START OF HEADER -->
+    <script src='{%static "js/jquery-2.1.0.min.js"%}'></script>
+           
+        <!-- START OF HEADER -->
 
- <div class="container">
-
+        <div class="container">
             <div  class="row">
                 <div id="campro-logo" class="col-md-6">
-                    <div class="logo" ><img src="{%static "images/logo3.png"%}" alt="Smiley face" height="150" >
-
+                    <div class="col-xs-6 logo" ><img src="{%static "images/logo3.png"%}" alt="Logo of Cameroon Protestant College Bali" height="150" >
+                    </div>
+                    <div class="col-xs-6" >
                         <a class ="logo2" href="#history"><h1>BOBA</h1>Bali Old Boys Association </a>
                     </div>
                 </div>
@@ -75,171 +76,153 @@
 
                         <li><a id="profileButton" href="{% url 'auth_logout' %}?next=/"><span>Logout</span></a></li>
                         {% else %}
-                        <li><a href="#" id="loginButton"><span>I am Boban. Let me in</span></a>
-                        {% endif %}
-                        <div id="loginBox">
-                            <!-- Login Starts Here -->
-                            <form id="loginForm">{% csrf_token %}
-                                <div class="message"><strong></strong></div>
-                                <fieldset id="body">
+                        <li><a href="{% url 'login' %}" id="loginButton"><span>I am Boban. Let me in</span></a>
+                        {% endif %}                       
+                    </div>
+                    </li>
 
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="inputEmail3" name='username' placeholder="Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" id="inputPassword3" name='password' placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-block btn-primary">Sign in</button>
-                                    </div>
+                </ul>
+            </div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="full-width-menu">Menu Bar</span>
+                        <span class="icon-toggle">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </span>    
+                    </button>
+           
 
-                                    <div class="form-roup">
-                                        <div class="checkbox"><input type="checkbox">
-                                            <span> <label>  Remember me
-                                    </label></span> </div>
-                                </div>
-                                </fieldset>
-                                <input type="hidden" name="next" value="{% firstof request.path '/' %}" />
-                                <a href="#"> Forgot your password?</a>
-<div class="OR" id ="first">OR</div>
-<div class='social'>
-<a class="btn btn-social  btn-google-plus" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}"><i class="fa fa-google-plus"> </i>&nbsp;</a>
-<a class="btn btn-social  btn-linkedin" href="{% url 'social:begin' 'linkedin' %}?next={{ request.path }}"><i class="fa fa-linkedin"> </i>&nbsp;</a>
-<a class="btn btn-social  btn-twitter" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}" ><i class="fa fa-twitter"> </i>&nbsp;</a>
-<a class="btn btn-social  btn-yahoo" href="{% url 'social:begin' 'yahoo' %}?next={{ request.path }}" ><i class="fa fa-yahoo"> </i> &nbsp;</a>
-<a class="btn btn-social  btn-facebook" href="{% url 'social:begin' 'facebook' %}" ><i class="fa fa-facebook"></i>&nbsp;</a>
-</div>
-<div class="OR" id ="second">OR</div>
+        </div>
+    </div>
+ <div class="clearfix"></div>
 
-<a href="{% url 'registration_register' %}" class="btn btn-primary btn-lg btn-block active" >Create an account</a>
-                            </form>  <!-- Login Ends Here -->
-                            </div>
-                        </div>
-                        </li>
+    <!-- end OF HEADER -->
+
+    <div class="container">
+
+        <div class="collapse navbar-collapse navbar-responsive-collapse  masthead">
+
+            <div class="container">
+                <ul class="nav nav-justified">
+                    <li><a href="{% url 'home' %}" class="arrow">Home</a></li>
+                    <li><a href="{% url 'history' slug='history' %}" class="arrow">History</a></li>
+                    <li><a href="{% url 'dictionary' %}" class="arrow"> Bali Dictionary</a></li>
+                    <li><a href="{% url 'memoire' %}">Memoire</a></li>
+                    <li><a href="{% url 'chapter'%}" class="arrow">Chapters</a></li>
+                    <li><a  href="{% url 'where-they-are' %}">Achievements</a></li>
+                    <li><a href="{% url 'anthem' %}">Anthem</a></li>
+                    <li class='dropdown'><a href="#" class='dropdown-toggle' data-toggle='dropdown'>Bobs Helping Bobs<b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{% url 'scholarship' %}">Scholarships</a></li>
+                        <!--li><a href="#">Career advice</a></li-->
+                        <li><a href="{% url 'contact' %}" class="arrow">Contribute</a></li>
 
                     </ul>
-                </div>
-
+                    </li>
+                </ul>
 
             </div>
-	 </div>
-
-	  <!-- end OF HEADER -->
-
- <div class="c">
-
-      <div class="masthead">
-
-		   <div class="container">
-        <ul class="nav nav-justified">
-          <li><a href="{% url 'home' %}" class="arrow">Home</a></li>
-          <li><a href="{% url 'history' %}" class="arrow">History</a></li>
-          <li><a href="{% url 'define-word' %}" class="arrow"> Bali Dictionary</a></li>
-          <li><a href="{% url 'memoire' %}">Memoire</a></li>
-          <li><a href="{% url 'chapter'%}" class="arrow">Chapters</a></li>
-          <li><a  href="{% url 'where-they-are' %}">Achievements</a></li>
-		  <li><a href="{% url 'anthem' %}">Anthem</a></li>
-                  <li class='dropdown'><a href="#" class='dropdown-toggle' data-toggle='dropdown'>Bobs Helping Bobs<b class="caret"></b></a>
-                  <ul class="dropdown-menu" role="menu">
-                <li><a href="{% url 'scholarship' %}">Scholarships</a></li>
-                <li><a href="#">Career advice</a></li>
-				<li><a href="{% url 'contact' %}" class="arrow">Contribute</a></li>
-
-              </ul>
-                  </li>
+        </div>
 
 
 
 
-        </ul>
-
-  </div>
-    </div>
+        <div class="container" style="min-height:40px;margin-bottom:100px; margin-top:10px;">
 
 
+            {% block main %} {% endblock %}
+        </div>
 
-
-    <div class="container" style="min-height:400px; margin-top:40px;">
-
-
- {% block main %} {% endblock %}
-  </div>
-
-            <footer class=" container bs-docs-footer" role="contentinfo">
-            <div class="col-md-12 ">
-                <div  class="bs-docs-social">
-                    <div style = 'height:100px; border: solid 0px grey 'class="col-md-12">
-    Class of:
-<ul class="col-sm-12"  id="ClassOf">
-</ul>
-</div>
-
-                    <!--img src="{%static "images/CPC_2.png"%}" alt="Smiley face" width="984" -->
-                </div>
+        <footer class=" container bs-docs-footer" role="contentinfo">
+        <h3 > Class of</h3>
+     
+            <div class="col-xs-12" id="ClassOf">
+            
+            
             </div>
-            </footer>
+      
+        </footer>
 
- </div> <!-- /container -->
+    </div> <!-- /container -->
 
-{% block javascript %}{% endblock %}
+        <script src='{%static "js/bootstrap.min.js"%}'></script>
+        <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+          <script src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <script src='{% static "js/select2.min.js"%}'></script>
+        <script src='{% static "js/jquery.simplePagination.js"%}'></script>
+        <script src='{% static "js/bootstrap-editable.min.js"%}'></script>
+        <script src='{% static "js/jquery.columnizer.min.js"%}'></script>
+      
+        <script src='{%static "js/login.js"%}'></script>
+ {% block javascript %}  {% endblock %}
     <script>
- $(document).ready(function($) {
-        $(document.body).on('submit','#loginForm', (function(e){
-		    console.log($(this))
-            e.preventDefault();
-            $.ajax({url:'/accounts/login/',
-            data:$(this).serialize(),
-            type:'POST',
-            success:function(data){
-                if (!data.message){
-                    location.reload();
-                    // of course you can do something more fancyi with your respone
-                    } else {
-                    $('.message').html(data.message);
-                }
+        $(document).ready(function($) {
+            $('#loginForm').submit(function(e){
+                e.preventDefault();
+                console.log(e)
+                
+                alert("here")
+                $.ajax({url:'/accounts/login/',
+                    data:$(this).serialize(),
+                    type:'POST',
+                    success:function(data){
+                        if (!data.message){
+                            location.reload();
+                            // of course you can do something more fancyi with your respone
+                            } else {
+                            $('.message').html(data.message);
+                        }
 
-                console.log(data.message)
-            },
-            error:function(ee,rr,ss){
-                console.log(ee)
-                console.log(rr)
-                console.log(ss)
-                alert('Server error occured. Contact network administrator')
-            }
+                        console.log(data.message)
+                    },
+                    error:function(ee,rr,ss){
+                        console.log(ee)
+                        console.log(rr)
+                        console.log(ss)
+                        alert('Server error occured. Contact network administrator')
+                    }
 
-        });
-            e.preventDefault();
+                });
+                e.preventDefault();
 
-        })) // end on submit
-
-
-    //only buttons
-   $('body').on('click', function (e) {
-    $("#loginButton, a[class='edit-post-button'],a.create-word").each(function () {
-        //the 'is' for buttons that trigger popups
-        //the 'has' for icons within a button that triggers a popup
-        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-            $(this).popover('hide');
-        }
-    });
-});// end on click
+            })// end on submit
 
 
-
-
-                          for ( i = 1954; i <= new Date().getFullYear(); i++) {
-                          $('#yearpicker').append($('<option />').val(i).html(i));
-
-                          $('#ClassOf').append('<li class=" col-xs-1"><a href="/batch?class_of='+i+ '" >' + i + '</a></li>')} // end for loop
- })// end document ready
+            //only buttons
+            $('body').on('click', function (e) {
+                $("#oginButton, a[class='edit-post-button'],a.create-word").each(function () {
+                    //the 'is' for buttons that trigger popups
+                    //the 'has' for icons within a button that triggers a popup
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                        $(this).popover('hide');
+                    }
+                });
+            });// end on click
 
 
 
 
-</script>
+            for ( i = 1953; i <= new Date().getFullYear(); i++) {
+                $('#yearpicker').append($('<option />').val(i).html(i));
+
+                $('#ClassOf').append('<div class=" col-xs-"><a class="btn btn-default btn-xs pull-left" href="/batch/'+i+ '/" >' + i + '</a></div>')} // end for loop
+            })// end document ready
 
 
 
+
+        </script>
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1559075371020966&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 </body></html>
 

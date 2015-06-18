@@ -9,9 +9,7 @@
     <div class="profile">   
         <div class="container content">
             <div class="row">
-                <!--Left Sidebar-->
-                
-                        
+                <!--Left Sidebar-->                   
                 <div class="col-md-3 md-margin-bottom-40">
                     <img class="img-responsive profile-img margin-bottom-20" src="{% static "history/oneil.jpg" %}" alt="">
                     
@@ -23,6 +21,11 @@
                          {% empty %}
                               No articles yet
                     {% endfor %}
+                    
+                     <li class="list-group-item">
+                            <a data-toggle="tab" href="#principals"><i class="fa fa-bar-chart-o"></i> Principals</a>
+                     </li>
+                    
                     </ul>   
                 </div>
                 <!--End Left Sidebar-->
@@ -39,6 +42,11 @@
                        {% empty %}
                               No articles yet
                     {% endfor %}
+                     <div id="principals" class="profile-edit tab-pane fade">                      
+                        
+                       {% include "home/history/principal.html" %}
+                      </div>
+                    
                     </div>
                     <!--End Profile Body-->
                     

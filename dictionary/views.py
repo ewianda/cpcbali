@@ -3,12 +3,14 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect,HttpResponse,Http404
-
+from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from dictionary.models import Word
 from django.forms import ModelForm, Textarea
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit,Div
-
+from home.context_processors import twitterAuthenticate
 # Create your views here.
 class WordForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -18,7 +20,11 @@ class WordForm(ModelForm):
         self.helper.label_class = 'col-sm-2'
         self.helper.field_class = 'col-sm-8'
         self.helper.layout.append(Submit('save', 'Add definition'))
-
+    
+    
+    def clean_word(self):      
+        return self.cleaned_data['word'].capitalize()
+    
     class Meta:
         model = Word
         exclude=('vote','user')
@@ -26,37 +32,38 @@ class WordForm(ModelForm):
             'definition': Textarea(attrs={'cols': 8, 'rows': 10}),
         }
 
-class WordList(CreateView):
+class WordList(ListView):
     model = Word
-    form_class = WordForm
-    success_url = '/define-word/'
     paginate_by = 8  #and that's it !!
    # template_name = "dictionary/define-word.html"
-    template_name = "dictionary/word-definition.html"
+   # template_name = "dictionary/word_list.html"
     def get_context_data(self, **kwargs):
-        words = self.model.objects.all()
-        wd = self.request.GET.get('word')
-        print "f-------------------------------------------ffffffffff"
-        if wd:
-            words = words.filter(word__startswith=wd)
-        kwargs['object_list'] = words.order_by('word')
-        return super(WordCreate, self).get_context_data(**kwargs)
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(WordCreate, self).form_valid(form)
+        words = self.model.objects.all()        
+        kwargs['objet_list'] = words.order_by('word')
+        return super( WordList, self).get_context_data(**kwargs)
 		
 	
-class WordCreate(ListView):
-    model = Word
-    template_name = "dictionary/word-definition.html"
-    paginate_by = 8  #and that's it !!
-    def get_queryset(self):
-        wd = self.request.GET.get('word',None)
-        if wd:
-          return Word.objects.filter(word__startswith=wd).order_by('word')
-        else:
-          return Word.objects.all().order_by('word')
-
+class WordCreate(CreateView):
+    form_class = WordForm
+    
+    model = Word    
+    def get_success_url(self):
+         return reverse('dictionary')
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        try:
+            api =twitterAuthenticate()
+            message = "%s has added a new word , %s to BOBA dictionary. Checkout http://www.balioldboys.org/dictionary/" % (self.request.user.full_name , self.object.word)
+            api.PostUpdate(message)
+        except:
+            pass
+        return super(WordCreate, self).form_valid(form)    
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(WordCreate, self).dispatch(*args, **kwargs)
 
 
 def WordUpdate(request):    

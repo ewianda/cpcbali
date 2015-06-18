@@ -12,7 +12,6 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser,PermissionsMixin
 )
-from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.conf import settings
@@ -64,7 +63,8 @@ HOUSE_CHOICE=(
         )
 ROOM_CHOICE=[('ROOM  ' + str(i), 'ROOM  ' + str(i) ) for i in range(1,27)]
 YEARS=[( str(i),  str(i) ) for i in range(1,8)]
-YEARS_IN_BALI = [(str(i),  str(i) ) for i in range(1954,date.today().year)]
+YEARS_IN_BALI = [(str(i),  str(i) ) for i in range(1953,date.today().year)]
+
 
 
 class MyUserManager(BaseUserManager):
@@ -124,7 +124,12 @@ class Boban(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(_('City'), max_length = 100, blank = True)
     picture =  ImageWithThumbsField(upload_to=file, blank = True, sizes=((125,125),(200,200)))
     notification = models.BooleanField(_('Receive info about Boba events'),default=True)
-    chapter = models.ManyToManyField('chapters.Chapter')
+    facebook = models.URLField(help_text=_('e.g.https://www.facebook.com/profile.php?id=501348704'),blank=True, null=True)
+    linkedin = models.URLField(help_text=_('e.g.https://www.linkedin.com/profile/view?id=146714511'),blank=True, null=True)
+    twitter = models.URLField(help_text=_('e.g. https://plus.google.com/107176605982323643354/posts'),blank=True, null=True)
+    google_plus = models.URLField(help_text=_('e.g.https://twitter.com/WiandaElvis'),blank=True, null=True)
+   
+    #chapter = models.ManyToManyField('chapters.Chapter')
     objects =MyUserManager()
 
     USERNAME_FIELD = 'email'
@@ -139,8 +144,8 @@ class Boban(AbstractBaseUser, PermissionsMixin):
         # The user is identified by their email address
         return self.email
 
-    def __str__(self):              # __unicode__ on Python 2
-        return self.email
+    def __unicode__(self):              # __unicode__ on Python 2
+        return '%s %s' % (self.first_name, self.last_name)
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
@@ -152,11 +157,15 @@ class Boban(AbstractBaseUser, PermissionsMixin):
         # Simplest possible answer: Yes, always
         return True
 
-
 class Batch(models.Model):
+    id = models.AutoField(primary_key=True)
     picture =  ImageWithThumbsField(upload_to=batch, blank = True, sizes=((125,125),(200,200)))
-    end_date = models.CharField(_('Batch of'),max_length = 32,null=True, blank = True,choices=YEARS_IN_BALI ,default="1954")
+    end_date = models.CharField(_('Batch of'),max_length = 32,null=False, unique = True,choices=YEARS_IN_BALI ,default="1954")
+    def batch_students(self):
+        return Boban.objects.filter(end_date=self.end_date)
     def __unicode__(self):
-	 return self.end_date
-    def get_absolute_url(self):
-        return reverse('batch')
+	    return self.end_date
+    
+    @models.permalink
+    def get_absolute_url(self):        
+        return 'batch', (), {'class_of': self.end_date}

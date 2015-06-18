@@ -9,14 +9,17 @@ urlpatterns = patterns('',
     url('', include('dictionary.urls')),
     url('', include('memoire.urls')),
     url('', include('scholarship.urls')),
+    url('', include('history.urls')),
     url('', include('chapters.urls')),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url('', include('users.urls')),
     url('', include('home.urls')),
     url(r'^accounts/',include('registration.backends.default.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^comments/', include('django_comments_xtd.urls')),
+    url(r'^comments/', include('dialogos.urls')),
     (r'^ckeditor/', include('ckeditor.urls')),
+       url(r'^boba-forum/', include("forum.urls")),
+    url(r'^comments-thread/',        include('django_comments_xtd.urls')),
 )
 
 if settings.DEBUG:

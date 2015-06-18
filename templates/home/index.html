@@ -1,11 +1,65 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load static %}
+
+{% load i18n %}
+   {% block title %}
+                                 HOME|Bali Old Boys Association 
+                {% endblock %}
+{% block css %}
+<link href="{%static "css/index/style.css"%}" rel="stylesheet">
+<style>
+    blockquote.twitter-tweet {
+        display: inline-block;
+        padding: 16px;
+        margin: 10px 0;
+        max-width: 468px;
+        border: #ddd 1px solid;
+        border-top-color: #eee;
+        border-bottom-color: #bbb;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        font: bold 14px/18px Helvetica, Arial, sans-serif;
+        color: #000;
+    }
+
+    blockquote.twitter-tweet p {
+        font: normal 12px/18px Georgia, "Times New Roman", Palatino, serif;
+        margin: 0 5px 10px 0;
+    }
+
+    blockquote.twitter-tweet a[href^="https://twitter.com"] {
+        font-weight: normal;
+        color: #666;
+        font-size: 1px;
+    }
+</style>
+ {% endblock %}
 {% block main %}
-<link href="{%static "css/index/style.css"%}" rel="stylesheet" >
+ <div class="row">
 
-        <div class="thumbnail">
-            <img class="img-responsive" src="/static/images/front_page.jpg" alt="Oneil Library" width="984">
+        <div class="col-md-8 thumbnail">
+            <img class="img-responsive" src="/static/images/front_page.jpg" alt="Oneil Library Donated by Bali Old Boys Association">
         </div>
-
+    
+       <div class="col-md-4">
+        <div class="headline"><h3>Facebook Posts</h3></div> 
+         {% for post in posts %} 
+       <div class="fb-post" style="overflow-x: auto; max-width: 100%;" data-href="{{post}}" data-width="300"></div>
+        {% endfor %} 
+           <div class="headline"><h3>Latest Tweets</h3></div> 
+    <div style="overflo:scroll;height:50px">
+        {% for tweet in tweets %} 
+   
+        <blockquote class="twitter-tweet">
+            <a href="https://twitter.com/{{tweet.user}}/status/{{tweet.id}}"> </a>
+        </blockquote>   
+        {% endfor %} 
+    </div>
+    
+    
+        </div>  
+        
+        
+ </div>
 {% endblock %}
