@@ -49,11 +49,13 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
-
+.gaedata
+*.zip
 # PyBuilder
 target/
 <<<<<<< HEAD
-
+*.json
+*.txt
 local_settings.py
 env
 *.pyc
