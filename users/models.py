@@ -105,8 +105,8 @@ class Boban(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         unique=True,
     )
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    first_name = models.CharField(_('first name'), max_length=30, )
+    last_name = models.CharField(_('last name'), max_length=30, )
     is_staff = models.BooleanField(_('staff status'), default=False)
     is_active = models.BooleanField(_('staff status'), default=True,
         help_text=_('Designates whether this user should be treated as '
@@ -114,11 +114,11 @@ class Boban(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     is_admin = models.BooleanField(_('Is Admin'), default=False)
     gender =  models.CharField(max_length=10, choices=GENDER_CHOICES)
-    nickname = models.CharField(max_length=128,verbose_name='Nickname')
-    years = models.CharField(_('Years in Bali'),max_length = 32,null=True, blank = True,choices=YEARS,default="7")
-    end_date = models.CharField(_('Batch of'),max_length = 32,null=True, blank = True,choices=YEARS_IN_BALI ,default="1954")
-    house =  models.CharField(_('House/Bungalow'), max_length = 32, blank = True,choices=HOUSE_CHOICE,default="ONEIL")
-    room =  models.CharField(_('Dorm/Room'), max_length = 32, blank = True,choices=ROOM_CHOICE,default="ROOM 1")
+    nickname = models.CharField(max_length=128,verbose_name='Nickname',blank=True, null=True)
+    years = models.CharField(_('Years in Bali'),max_length = 32,choices=YEARS,default="7")
+    end_date = models.CharField(_('Batch of'),max_length = 32, null=True,choices=YEARS_IN_BALI ,default="1954")
+    house =  models.CharField(_('House/Bungalow'), max_length = 32, choices=HOUSE_CHOICE,default="ONEIL")
+    room =  models.CharField(_('Dorm/Room'), max_length = 32, choices=ROOM_CHOICE,default="ROOM 1")
     memoire=  RichTextField(_('Fun memories'), max_length = 255, blank = True)
     country = models.CharField(_('Country'), max_length = 100, blank = True)
     city = models.CharField(_('City'), max_length = 100, blank = True)

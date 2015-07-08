@@ -9,10 +9,8 @@
 
 <body>
 <p>
- Hi {{user}}
-    You (or someone pretending to be you) have asked to register an account at
-    {{ site.name }}.  If this wasn't you, please ignore this email
-    and your address will be removed from our records.
+ BOB {{user}}
+   Thanks for joining Bali Old Boys Association webiste.
 </p>
 <p>
 
@@ -25,6 +23,10 @@
     <a href="http://{{site.domain}}{% url 'registration_activate' activation_key %}">
         {{site.domain}}{% url 'registration_activate' activation_key %}
     </a>
+</p>
+<p>
+If you did not sign up, please ignore this email
+    and your address will be removed from our records.
 </p>
 <p>
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from history.models import  History,Principal,PrincipalBiography
+from history.models import  History,Principal,PrincipalBiography,TimeLog
 # Register your models here.
 # Register your models here.
 class  BioInline(admin.TabularInline):
@@ -17,3 +17,4 @@ class HistoryAdmin(admin.ModelAdmin):
     
 admin.site.register(Principal,PrincipalAdmin)    
 admin.site.register(History,HistoryAdmin)
+admin.site.register(TimeLog)

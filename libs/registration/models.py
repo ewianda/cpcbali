@@ -71,7 +71,7 @@ class RegistrationManager(models.Manager):
                 return user
         return False
 
-    def create_inactive_user(self, username, email, password,
+    def create_inactive_user(self,   email, password,
                              site, send_email=True, request=None):
         """
         Create a new, inactive ``User``, generate a
@@ -84,7 +84,7 @@ class RegistrationManager(models.Manager):
         it will be passed to the email template.
 
         """
-        new_user = UserModel().objects.create_user(username, email, password)
+        new_user = UserModel().objects.create_user(  email, password)
         new_user.is_active = False
         new_user.save()
 
@@ -107,10 +107,10 @@ class RegistrationManager(models.Manager):
         """
         salt = hashlib.sha1(six.text_type(random.random()).encode('ascii')).hexdigest()[:5]
         salt = salt.encode('ascii')
-        username = user.username
-        if isinstance(username, six.text_type):
-            username = username.encode('utf-8')
-        activation_key = hashlib.sha1(salt+username).hexdigest()
+        email = user.email
+        if isinstance(email, six.text_type):
+             email =  email.encode('utf-8')
+        activation_key = hashlib.sha1(salt+ email).hexdigest()
         return self.create(user=user,
                            activation_key=activation_key)
 

@@ -150,7 +150,7 @@ INSTALLED_APPS = (
     'crispy_forms', 'dictionary', 'captcha', 'scholarship',
      'registration',
       'ckeditor', 'home', 'chapters',
- "forum", 'django.contrib.humanize','facebook_access',
+      "forum", 'django.contrib.humanize','facebook_access',
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
 )
@@ -204,10 +204,16 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 LANGUAGE_CODE = 'en-us'
 
 ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_EMAIL_SUBJECT_PREFIX = 'Your Registration With LSCDS'
+REGISTRATION_EMAIL_SUBJECT_PREFIX = 'Your Registration With Bali Old Boys Association'
 SEND_ACTIVATION_EMAIL = True
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if on_production_server:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    
+    
+    
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/general-profile/'
 

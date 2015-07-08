@@ -1,15 +1,31 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% load future %}
+{% load staticfiles %}
+{% load static %}
+{% load i18n %}
+{% load url from future %}
 {% block title %} Account Activated" {% endblock %}
 
 {% block main %}
-<p>
-     Your account is now activated.
+<h3 class="col-md-offset-2">
+     Your account is now activated.</h3>
+     <ul class="list-group" >
     {% if not user.is_authenticated %}
-    You can log in. 
+   <li class="list-group-item list-group-item-success">You can <a href="{% url 'login' %}" >Log in</a></li>
     {% endif %}
-</p>
+  <li class="list-group-item list-group-item-success"><a href="{% url 'home' %}" class="arrow">Home</a></li>
+   <li class="list-group-item list-group-item-success"> <a href="{% url 'principals' %}"> Principals</a></li>
+    <li class="list-group-item list-group-item-success"> <a href="{% url 'time-log' %}"> Time Log</a></li>
+     <li class="list-group-item list-group-item-success"><a href="{% url 'dictionary' %}" class="arrow"> Bali Dictionary</a></li>
+                    <li class="list-group-item list-group-item-success"><a href="{% url 'memoire' %}">Memoire</a></li>
+                    <li class="list-group-item list-group-item-success"><a href="{% url 'chapter'%}" class="arrow">Chapters</a></li>
+                    <li class="list-group-item list-group-item-success"><a  href="{% url 'where-they-are' %}">Achievements</a></li>
+                  
+    
+                      </ul>
+                            
+
 {% endblock %}
 
 

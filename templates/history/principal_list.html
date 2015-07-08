@@ -46,9 +46,9 @@
  {% block right_bar %} 
  <fieldset>
  <legend> List of principals</legend> 
-<ul class="margin-bottom-40" id="sidebar-nav-1">
+<ul class="list-group margin-bottom-40">
    {% for obj in object_list %}
-         <li class="active"><a href="{{obj.get_absolute_url}}">{{obj}}</a></li>
+         <li class="list-group-item"><a href="{{obj.get_absolute_url}}">{{obj}}</a></li>
   {% endfor %}   
 </ul> 
 </fieldset>

@@ -29,7 +29,6 @@ class Topic(models.Model):
     allow_comments = models.BooleanField('allow comments', default=True)
     publish = models.DateField(default=datetime.now())
     objects = PublicManager() 
-
     class Meta:
         db_table = 'stories'
         ordering = ('-publish',)
@@ -44,7 +43,9 @@ class Topic(models.Model):
         return ('topic-detail', (),{'slug': self.slug})
       
       
-      
+class Reply(models.Model): 
+    topic = models.ForeignKey(Topic)
+    user  = models.ForeignKey(User,null = True, blank=True)
       
       
       

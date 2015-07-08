@@ -13,6 +13,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit,Div
 from home.context_processors import twitterAuthenticate
 from ckeditor.widgets import CKEditorWidget
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your views here.
 
 class WordUpdateForm(ModelForm):
@@ -76,7 +78,11 @@ class WordUpdateView(UpdateView):
         if self.request.user.is_authenticated():  
            word.user = self.request.user           
         #self.object.save()
-        word.save()        
+        word.save()
+        send_mail( subject="New word added",
+                 message="%s:%s" % (self.object.word,self.object.definition),
+                 from_email=settings.EMAIL_HOST_USER,
+                 recipient_list=[settings.EMAIL_HOST_USER],)        
         return super(WordUpdateView, self).form_valid(form)    
       
         
@@ -84,17 +90,11 @@ class WordCreate(CreateView):
     form_class = WordForm
     model = Word
     def get_success_url(self):
-         return reverse('thanks')
+         return reverse('thanks') 
      
-     
-     
-    model = Word    
-    def get_success_url(self):
-         return reverse('dictionary')
+    model = Word        
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        import logging
-        logging.error(type(self.object))
+        self.object = form.save(commit=False)        
         if self.request.user.is_authenticated():
            self.object.user = self.request.user
         self.object.save()   
@@ -102,7 +102,12 @@ class WordCreate(CreateView):
         if self.request.user.is_authenticated():  
            word.user = self.request.user           
         #self.object.save()
-        word.save()
+        word.save()         
+        send_mail( subject="New word added",
+                 message="%s:%s" % (self.object.word,self.object.definition),
+                 from_email=settings.EMAIL_HOST_USER,
+                 recipient_list=[settings.EMAIL_HOST_USER],)
+        
         try:
             api =twitterAuthenticate()
             message = "%s has added a new word , %s to BOBA dictionary. Checkout http://www.balioldboys.org/dictionary/" % (self.request.user.full_name() , self.object.word)

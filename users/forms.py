@@ -31,7 +31,7 @@ class UserCreationForm(forms.ModelForm):
         )
         self.helper.layout.append(
         Fieldset('CPC Information', # Legend
-                     Div( 'house','room', css_class="col-md-6 col-md-offset-",placeholder='Gender'),
+                     Div( 'house','room','end_date', css_class="col-md-6 col-md-offset-",placeholder='Gender'),
                      
                        Div('years','nickname', 'notification', css_class="col-md-6 col-md-offset-",placeholder='Gender'),
 

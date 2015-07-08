@@ -140,6 +140,34 @@ indexes:
   - name: __key__
     direction: desc
 
+- kind: history_principal
+  properties:
+  - name: from_date
+  - name: __key__
+    direction: desc
+
+- kind: history_timelog
+  properties:
+  - name: __key__
+    direction: desc
+
+- kind: history_timelog
+  properties:
+  - name: approved
+  - name: year
+
+- kind: history_timelog
+  properties:
+  - name: time
+  - name: __key__
+    direction: desc
+
+- kind: history_timelog
+  properties:
+  - name: year
+  - name: __key__
+    direction: desc
+
 - kind: home_achievement
   properties:
   - name: __key__

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+  {% block title %}
+{% if word %}
+Edit {{word}} definition
+{% else %}                             
+Add to time Log
+{% endif %}
+
+{% endblock %}
+
+
+{% block main %}
+<div class="alert alert-danger" role="alert">Dear BOB. To get credit for your contribution,
+please <a href="{% url 'registration_register' %}">create an account</a>. If you add/edit  without an account, it will appear as anonymous 
+Contents are reviewed before they can be added to the website. <b>Thanks for your contribution</b></div>
+
+
+
+
+<div class="col-md-8  col-md-offset-1 row">
+<form method="post" action="" class="form-inline">
+{% csrf_token %}
+{{form.media}}
+{% if form.errors %}
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {% for field in form %} 
+        {% if field.errors %}
+        <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+        {% endif %}        
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+        {% endfor %}
+        </div>
+    {% endif %} 
+ <div class="form-group">     
+<h4>Date</h4>
+<div class=" well row">
+<span>
+{{form.day}}
+{{form.month}}
+{{form.year}}
+
+</span>
+</div>
+<h4 class="{% if form.event.errors %}has-error{%endif%}" >Event</h4>
+<div class="well row">
+<span style="color:red">{% if form.event.errors %}{{form.event.errors|striptags }}{%endif%} </span>
+{{form.event}}<br>
+<span style="color:red">{% if form.captcha.errors %}{{form.captcha.errors|striptags }}{%endif%} </span>{{form.captcha}}
+</div>
+<div class="well row">
+<button type="submit" class="btn btn-primary">Submit Time log</button>
+</div>
+
+</div>
+</form>
+</div>
+      
+{% endblock %}
+
+
+
+
+
+{% block javascript %}
+<script src='{% static "js/moment.min.js"%}'></script> 
+<script src='{% static "js/combodate.js"%}'></script> 
+<script type="text/javascript">
+                                                       
+ $(document).ready(function() {
+ $('select').addClass('form-control').css({ 'width': "auto" });
+
+
+}) // End document ready
+</script>
+{% endblock %}

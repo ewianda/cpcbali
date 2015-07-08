@@ -9,4 +9,6 @@ urlpatterns = patterns('',
         url(r'^principals/$', views.PrincipalListView.as_view(),name="principals"),
         url(r'^principal/(?P<slug>[\w-]+)/$', views.PrincipalDetailView.as_view(), name='principal-detail'),
         url(r'^principal-update/(?P<slug>[\w-]+)/$', views.PrincipalUpdateView.as_view(), name='principal-update'),
+        url(r'^time-log/$', views.TimeLogListView.as_view(),name="time-log"),
+       url(r'^add-time-log/$', views.TimeLogCreateView.as_view(),name="add-time-log"),
         )

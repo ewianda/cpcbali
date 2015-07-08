@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from ckeditor.fields import RichTextField
 from django.utils.translation import ugettext_lazy as _
+import datetime
 # Create your models here.
 
 class History(models.Model):
@@ -23,7 +24,8 @@ class Principal(models.Model):
     slug = models.SlugField(max_length=100,unique=True)
     from_date = models.DateField()
     to_date = models.DateField()
-    
+    class Meta:
+        ordering = ['from_date'] 
     def __unicode__(self):
         return self.name
     @models.permalink
@@ -43,10 +45,39 @@ class PrincipalBiography(models.Model):
         principal = models.ForeignKey(Principal,related_name='biographies')
         user = models.ForeignKey(settings.AUTH_USER_MODEL,blank = True, null = True)
         approved = models.BooleanField(default=False)
-        
-     
-        
-        
+ 
+from django.utils.dates import MONTHS
+import datetime
+YEAR_CHOICES = []
+for r in range(1949, (datetime.datetime.now().year)):
+    YEAR_CHOICES.append((r,r))  
+    
+DAY_CHOICES = []
+for r in range(1, (32)):
+    DAY_CHOICES.append((r,r))     
+       
+class TimeLog(models.Model):
+    year =  models.IntegerField(_('year'), max_length=4, choices=YEAR_CHOICES, default=datetime.datetime.now().year)
+    month = models.PositiveSmallIntegerField(choices=MONTHS.items(),blank = True, null = True)
+    day = models.IntegerField(_('Day'), max_length=2, choices=DAY_CHOICES,blank = True, null = True)
+  
+    event = RichTextField(_('event'), max_length = 255)
+    approved = models.BooleanField(default=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,blank = True, null = True) 
+    def __unicode__(self):
+        return str(self.year)    
+    class Meta:
+        ordering = ['year']   
+    def new_month(self):
+        if not self.get_month_display():
+            return '' 
+        else:
+            return self.get_month_display()
+    def new_day(self):
+        if not self.day:
+            return '' 
+        else:
+            return self.day
         
         
        

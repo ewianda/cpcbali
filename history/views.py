@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from history.models import  History,Principal,PrincipalBiography
+from history.models import  History,Principal,PrincipalBiography,TimeLog
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView,CreateView
 from django.utils import timezone
-from history.forms import PrincipalUpdateForm
+from history.forms import PrincipalUpdateForm,TimeLogForm 
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
@@ -38,7 +38,7 @@ class PrincipalUpdateView(UpdateView):
              bio.user = self.request.user           
         #self.object.save()
           bio.save()           
-          send_mail( subject="New word added",
+          send_mail( subject="Principal Bio added",
                message="%s:%s" % (self.object.name,bio),
                from_email=settings.EMAIL_HOST_USER,
                recipient_list=[settings.EMAIL_HOST_USER],)          
@@ -51,3 +51,30 @@ class PrincipalListView(ListView):
         context = super(PrincipalListView, self).get_context_data(**kwargs)
         context['history_list'] = History.objects.all()
         return context 
+    
+
+class TimeLogListView(ListView):
+    model = TimeLog    
+    def get_queryset(self):
+        return self.model.objects.filter(approved=True)
+class TimeLogCreateView(CreateView):
+    form_class=    TimeLogForm 
+    model = TimeLog  
+    def get_success_url(self):
+         return reverse('thanks')
+    def form_valid(self, form):  
+        self.object = form.save(commit=False)
+        if self.request.user.is_authenticated():  
+             self.object.user = self.request.user
+             self.object.approved = False
+             send_mail( subject="Time line added",
+                 message="%s:%s" % (self.object.event,self.object.user),
+                 from_email=settings.EMAIL_HOST_USER,
+                 recipient_list=[settings.EMAIL_HOST_USER],)
+             #self.object.save()
+             #send_mail( subject="New timelog added",
+              # message="%s:%s" % (str(self.object.time),self.object.event),
+              # from_email=settings.EMAIL_HOST_USER,
+              # recipient_list=[settings.EMAIL_HOST_USER],)          
+        return super(TimeLogCreateView, self).form_valid(form) 
+    

@@ -35,12 +35,7 @@ class Definition(models.Model):
      approved = models.BooleanField(default=False)
      user = models.ForeignKey(settings.AUTH_USER_MODEL,blank = True, null = True)
      word = models.ForeignKey(Word, null = True,related_name='definitions')
-     def save(self, *args, **kwargs): 
-        send_mail( subject="New word added",
-                 message="%s:%s" % (self.word,self.definition),
-                 from_email=settings.EMAIL_HOST_USER,
-                 recipient_list=[settings.EMAIL_HOST_USER],)
-        super(Definition, self).save(*args, **kwargs)       
+          
         
      def __unicode__(self):
         return self.definition
